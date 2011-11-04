@@ -1,0 +1,34 @@
+\name{Xdc.sevsample}
+\alias{Xdc.sevsample}
+
+\title{Likelihood-Ratio-Test Statistics: Several Sample Dirichlet-Multinomial Test Comparison}
+\description{
+This routine provides the value of the Likelihood-Ratio-Test Statistics and the corresponding p-value for evaluating the several 
+sample Dirichlet-Multinomial parameter test comparison.}
+\usage{Xdc.sevsample(group.data, initscalar = 30, epsilon = 10^(-4))}
+\arguments{
+  \item{group.data}{
+A list of matrices of data which contain samples and their taxa counts (matrices should have the same column names).}
+  \item{initscalar}{
+Initial value for the MLE estimation procedure, the default value is 30. See function dirmult for more details.}
+  \item{epsilon}{
+Convergence tolerance. To terminate, the difference between two succeeding log-likelihoods must be smaller than epsilon. Default value is 10^(-4).}
+}
+\details{
+To assess whether the Dirichlet parameter vector, \eqn{\mathbf{\alpha}_{\mathrm{m}}=\mathbf{\pi}_{\mathrm{m}} \frac{1-\theta_{\mathrm{m}}}{\theta_{\mathrm{m}}}}(a  function of the RAD probability-mean vector  and overdispersion), observed in \eqn{J} groups  of microbiome samples are equal to each other, the following hypothesis 
+\eqn{\mathrm{H}_{\mathrm{o}}: \mathbf{\alpha}_{\mathrm{1}} = \cdots =\mathbf{\alpha}_{\mathrm{m}}=\cdots= \mathbf{\alpha}_{\mathrm{J}}=\mathbf{\alpha}_{\mathrm{o}}} 
+versus \eqn{\mathrm{H}_{\mathrm{a}}:  \mathbf{\alpha}_{\mathrm{m}} \ne \mathbf{\alpha}_{\mathrm{o}}, m=1, \ldots, J} can be tested. The null hypothesis implies that the HMP samples across groups have the same mean and overdispersion, indicating that the RAD models are identical. In particular, the likelihood-ratio test statistic is used, which is given by, 
+\deqn{x_{\mathrm{dc}}=-2 \log\left\{\frac{L\left(\mathbf{\alpha}_{\mathrm{o}}; \mathbf{X}_{\mathrm{1}},\ldots, \mathbf{X}_{\mathrm{J}} \right)}{L\left(\mathbf{\alpha}_{\mathrm{1}},\ldots,\mathbf{\alpha}_{\mathrm{J}}; \mathbf{X}_{\mathrm{1}},\ldots, \mathbf{X}_{\mathrm{J}} \right)}\right\}.} 
+The asymptotic null distribution of \eqn{x_{\mathrm{dc}}} follows a Chi-square with degrees of freedom equal to (J-1)*K, where K is the number of taxa (Wilks, 1938).}
+\value{A list containing the Xdc statistics and \eqn{P} vlaues.}
+\references{Wilks, S. S. (1938). The Large-Sample Distribution of the Likelihood Ratio for Testing Composite Hypotheses. The Annals of Mathematical Statistics 9, 60-62.}
+\author{Patricio S. La Rosa, Elena Deych, Berkley Shands, William D. Shannon}
+
+\examples{
+data(saliva) 
+data(throat)
+
+### A test where we use the default values for initscalar and epsilon
+Xdc.sevsample_check <- Xdc.sevsample(list(saliva, throat))
+Xdc.sevsample_check
+}
