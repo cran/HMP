@@ -12,7 +12,8 @@ function(group.data,initscalar=30,epsilon=10^(-4)){
 
 	logliks <- unlist(lapply(fit,function(x) x$loglik))
 	
-	groupData <- NULL;n.groups=length(group.data)
+	groupData <- NULL
+	n.groups <- length(group.data)
 	for(i in 1:n.groups){
 		groupData <- rbind(groupData,group.data[[i]])
 	}

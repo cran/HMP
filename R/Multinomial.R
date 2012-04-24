@@ -7,8 +7,8 @@ function(Nrs, probs){
 		stop("probs missing")
 	}
 
-	Nrz=t(t(Nrs))
-	Sample.counts=t(apply(Nrz,1,function(x){rmultinom(n=1,size=x,prob=probs)}))
-	data=Sample.counts[, colSums(Sample.counts) != 0]
+	Nrz <- t(t(Nrs))
+	Sample.counts <- t(apply(Nrz,1,function(x){rmultinom(n=1,size=x,prob=probs)}))
+	data <- Sample.counts[, colSums(Sample.counts) != 0]
 }
 

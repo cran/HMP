@@ -9,10 +9,10 @@ function(Nrs, fit, type){
 	}
 
 	#C(alpha) test-statistics
-	Z=Z.statistics(data)
+	Z <- Z.statistics(data)
 
 	#C(alpha) T test-statistics
-	T=T.statistics(data)
-	ZT=c(Z,T)
+	T <- T.statistics(data)
+	ZT <- c(Z,T)
 }
 

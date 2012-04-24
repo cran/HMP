@@ -19,16 +19,16 @@ function(data, order.type, reads.crit, K){
 
 	#Order data: if order.type == sample, then every sample is ordered based on its frequency
 	#otherwise samples are ordered based on taxa total counts across samples
-	ifelse(order.type=="sample",data<-t(apply(data,1,function(x){x[order(x,decreasing=TRUE)]})),data<-data[,order(apply(data,2,sum),decreasing=TRUE)])
+	ifelse(order.type=="sample", data<-t(apply(data,1,function(x){x[order(x,decreasing=TRUE)]})), data<-data[,order(apply(data,2,sum),decreasing=TRUE)])
 
 	#Selecting samples with more than reads.crit reads
-	data=data[apply(data,1,sum)>reads.crit,]
+	data <- data[apply(data,1,sum)>reads.crit,]
 
 	#Removing empty ordered taxa
-	data=data[,apply(data,2,sum)>0]
+	data <- data[,apply(data,2,sum)>0]
 
 	#Selecting the K most taxa
-	P=dim(data)[1];Taxa=dim(data)[2]
-	dataK=cbind(data[,1:K], as.matrix(apply(as.matrix(data[,(K+1):Taxa]),1,sum)))
+	P <- dim(data)[1];Taxa=dim(data)[2]
+	dataK <- cbind(data[,1:K], as.matrix(apply(as.matrix(data[,(K+1):Taxa]),1,sum)))
 }
 
