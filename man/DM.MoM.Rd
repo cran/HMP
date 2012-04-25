@@ -14,7 +14,7 @@ Given a set of taxa-count vectors \eqn{\left\{\textbf{x}_{i},\ldots, \textbf{x}_
 \deqn{\hat{\theta} = \sum_{j=1}^K \frac{S_{j}-G_{j}}{\sum_{j=1}^{K}\left ( S_{j}+\left ( N_{c}-1 \right )G_{j} \right )},}
 where \eqn{N_{c}=\left( P -1 \right)^{-1} \left(\sum_{i=1}^P N_{i}-\left (\sum_{i=1}^P N_{i}  \right )^{-1} \sum_{i=1}^P N_{i}^2\right)}, 
 and \eqn{S_{j}=\left( P -1 \right)^{-1} \sum_{i=1}^P N_{i} \left ( \hat{\pi}_{ij} -\hat{\pi}_{j} \right )^{2}}, 
-and \eqn{G_{j}=\left( \sum_{i=1}^P \left (N_i-1 \right ) \right)^{-1} \sum_{i=1}^P N_{i} \hat{\pi}_{ij} \left (1- \hat{\pi}_{ij}\right )} with \eqn{\hat{\pi}_{ij}=\frac{x_{ij}}{N_{i}}}.
+and \eqn{G_{j}=\left( \sum_{i=1}^P \left (N_i-1 \right ) \right)^{-1} \sum_{i=1}^P N_{i} \hat{\pi}_{ij} \left (1- \hat{\pi}_{ij}\right)} with \eqn{\hat{\pi}_{ij}=\frac{x_{ij}}{N_{i}}}.
 }
 \value{A list providing the MoM estimator for overdispersion, the MoM estimator of the RAD-probability mean vector, 
 and the corresponding loglikelihood value for the given data set and estimated parameters.}

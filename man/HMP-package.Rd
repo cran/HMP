@@ -10,8 +10,8 @@ of the tests described above using Monte-Carlo simulations.}
 \tabular{ll}{
 Package: \tab HMP\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2011-10-27\cr
+Version: \tab 1.1\cr
+Date: \tab 2012-4-24\cr
 License: \tab GPL-2\cr
 LazyLoad: \tab yes\cr
 }

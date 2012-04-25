@@ -26,6 +26,6 @@ The (K+1)th taxon contains the sum of the remaining less abundant taxa equal to 
 data(saliva) 
 
 ### Excludes all samples with fewer than 1000 reads and collapses
-### taxes with 11th or smaller abundance into one category 
+### taxas with 11th or smaller abundance into one category 
 myfiltered <- Data.filter(saliva, "sample", 1000, 10) 
 }

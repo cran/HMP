@@ -6,10 +6,10 @@ function(data, alphap){
 		stop("alphap missing")
 	}
 
-	data=data[,colSums(data) != 0]
-	alphap=alphap[alphap!=0]
-	Ns=dim(data)[1]
-	K=dim(data)[2]
+	data <- data[,colSums(data) != 0]
+	alphap <- alphap[alphap!=0]
+	Ns <- nrow(data)
+	K <- ncol(data)
 	ll <- sum(lgamma(apply(data,1,sum)+1) + lgamma(sum(alphap))-lgamma(sum(alphap)+apply(data,1,sum)))+sum(apply(lgamma(matrix(alphap,nrow=Ns,ncol=K,byrow=TRUE) + data)-lgamma(data+1)-lgamma(matrix(alphap,nrow=Ns,ncol=K,byrow=TRUE)),1,sum))
 	ll
 }

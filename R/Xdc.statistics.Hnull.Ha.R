@@ -5,13 +5,13 @@ function(alphap, Nrs, n.groups, type, Est){
 	
 	if(type == "hnull"){	
 		for(x in index){	# Dirichlet-Multinomial
-			data=Dirichlet.multinomial(Nrs,shape=alphap) 
-			group.data.null[[x]]=data
+			data <- Dirichlet.multinomial(Nrs,shape=alphap) 
+			group.data.null[[x]] <- data
 		}
 	}else if(type == "ha"){
 		for(x in index){
-			data=Dirichlet.multinomial(Nrs[x,],shape=alphap[x,])
-			group.data.null[[x]]=data
+			data <- Dirichlet.multinomial(Nrs[x,],shape=alphap[x,])
+			group.data.null[[x]] <- data
 		} 					
 	}else{
 		stop(paste("Can't find type ", type, sep=""))

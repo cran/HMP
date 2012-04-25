@@ -10,8 +10,8 @@ function(Nrs, shape){
 		stop("Nrs and shape must be positive.")
 	}
 
-	Nrz=t(t(Nrs))
-	Sample.counts=t(apply(Nrz,1,function(x){rmultinom(n=1,size=x,prob=rdirichlet(1,shape))}))
-	data=Sample.counts
+	Nrz <- t(t(Nrs))
+	Sample.counts <- t(apply(Nrz,1,function(x){rmultinom(n=1,size=x,prob=rdirichlet(1,shape))}))
+	data <- Sample.counts
 }
 

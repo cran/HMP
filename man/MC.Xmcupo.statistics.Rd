@@ -1,8 +1,8 @@
 \name{MC.Xmcupo.statistics}
 \alias{MC.Xmcupo.statistics}
-\title{Size and Power of Several Sample RAD-RAD-Probability Mean Test Comparisons: Unknown Vector of Proportion}
+\title{Size and Power of Several Sample RAD-Probability Mean Test Comparisons: Unknown Vector of Proportion}
 \description{This Monte-Carlo simulation procedure provides the power and size of the several sample RAD-probability mean test 
-comparison without reference vector of proportions, using the Generalized Wald-type statistics.}
+comparisons without reference vector of proportions, using the Generalized Wald-type statistics.}
 \usage{
 MC.Xmcupo.statistics(Nrs, MC, pi0, group.pi, group.theta, 
 	type = "hnull", siglev = 0.05)
