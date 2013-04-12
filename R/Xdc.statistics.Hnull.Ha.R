@@ -1,31 +1,25 @@
 Xdc.statistics.Hnull.Ha <-
-function(alphap, Nrs, n.groups, type, Est){				
-	group.data.null<-list()
-	index=as.matrix(seq(1:n.groups))	
-	
-	if(type == "hnull"){	
-		for(x in index){	# Dirichlet-Multinomial
-			data <- Dirichlet.multinomial(Nrs,shape=alphap) 
-			group.data.null[[x]] <- data
-		}
-	}else if(type == "ha"){
-		for(x in index){
-			data <- Dirichlet.multinomial(Nrs[x,],shape=alphap[x,])
-			group.data.null[[x]] <- data
-		} 					
-	}else{
-		stop(paste("Can't find type ", type, sep=""))
-	}
-					
-	#Xdc.statistics with MoM
-	if(Est == "MLE"){
-		Xdc <- Xdc.statistics(group.data.null)
-	}
-	else if(Est == "MoM"){
-		Xdc <- Xdc.statistics.MoM(group.data.null)
-	}
-	else{
-		stop(paste("Can't find est ", Est, sep=""))
-	}
+function(alphap, Nrs, n.groups, type, est){
+group.data.null <- list()
+index <- as.matrix(seq(1:n.groups))
+
+if(tolower(type) == "hnull"){
+for(x in index)
+group.data.null[[x]] <- Dirichlet.multinomial(Nrs[[x]], shape=alphap)
+}else if(tolower(type) == "ha"){
+for(x in index)
+group.data.null[[x]] <- Dirichlet.multinomial(Nrs[[x]], shape=alphap[x,]) 
+}else{
+stop(sprintf("Type '%s' not found. Type must be 'ha' for power or 'hnull' for size.\n", as.character(type)))
 }
 
+if(tolower(est) == "mle"){
+Xdc <- Xdc.statistics(group.data.null)
+}else if(tolower(est) == "mom"){
+Xdc <- Xdc.statistics.MoM(group.data.null)
+}else{
+stop(sprintf("Est '%s' not found. Est must be 'mle' or 'mom'.", as.character(est)))
+}
+
+return(Xdc)
+}
