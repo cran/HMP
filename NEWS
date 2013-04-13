@@ -1,0 +1,30 @@
+CHANGES IN HMP VERSION 1.3
+
+CHANGES
+
+* Updated several of the MC functions to perform power calculations on unbalanced designs, 
+  however it should be noted that this caused the Nrs parameter to change from a vector to a 
+  list for several functions.
+  
+* Removed the initscalar parameter from the sevsample functions and replaced it with the value
+  of gamma from the DM.MoM function.
+
+* Change the names of some functions so they all follow the same formatting.  This change mainly 
+  affected internal functions.
+  
+* Changed the wording of the return value in the MC functions from "effect size" to "size of the 
+  test statistics" to correctly describe what is being returned.
+  
+* Changed the Barchart.data function to take a full title rather than just a taxa level.
+
+* Changed Xdc.sevsample to select between 'mle' and 'mom' estimators.
+
+* Added several warnings/notes clarifying that the value of MC  should be >1000 in the MC.functions
+
+* Added several warnings/notes clarifying the use of different number of reads in a sample
+
+* Added two new functions: Xmcupo.effectsize and pioest
+
+BUG FIXES
+
+* Fixed a bug in MC.Xdc.statistics where k was not set to the right value under "ha".
