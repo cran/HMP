@@ -30,9 +30,9 @@
 	data(tonsils)
 	
 	### Get a list of dirichlet-multinomial parameters for the data
-	fit.saliva <- dirmult(saliva) 
-	fit.throat <- dirmult(throat)
-	fit.tonsils <- dirmult(tonsils)
+	fit.saliva <- DM.MoM(saliva) 
+	fit.throat <- DM.MoM(throat)
+	fit.tonsils <- DM.MoM(tonsils) 
 	
 	### Set up the number of Monte-Carlo experiments
 	### We set MC=1 due to CRAN restrictions, Please set MC to be at least 1,000

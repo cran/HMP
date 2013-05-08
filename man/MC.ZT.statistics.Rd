@@ -30,7 +30,7 @@
 	data(saliva) 
 	
 	### Get a list of dirichlet-multinomial parameters for the data
-	fit.saliva <- dirmult(saliva) 
+	fit.saliva <- DM.MoM(saliva) 
 	
 	### Set up the number of Monte-Carlo experiments
 	### We set MC=1 due to CRAN restrictions, Please set MC to be at least 1,000
