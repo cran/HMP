@@ -1,6 +1,6 @@
-2cc6f1377ef126cc253dda23914747b2 *DESCRIPTION
+e4c59d66221e01b42ea7276316516923 *DESCRIPTION
 df390c53434517b304ac5db487184641 *NAMESPACE
-9f94a6246a04459f086f85dea12e9c85 *NEWS
+b9c53e97140f04e90c57a99455d924ba *NEWS
 6b29df230c1fcc34dc295d8260a3ebbf *R/Barchart.data.R
 7ff37d8818708333f5291bace8e09f87 *R/C.alpha.multinomial.R
 11c6ae6d52e0137b4c9c2fc07b24323f *R/DM.MoM.R
@@ -8,7 +8,7 @@ df390c53434517b304ac5db487184641 *NAMESPACE
 1171ea171a51af4b2b9e97a5ee20810c *R/Dirichlet.multinomial.R
 f2526c68ad15d11bde7528ca11e82e55 *R/MC.Xdc.statistics.R
 e16c7aef2dc4c096f86c6c664fd248a0 *R/MC.Xmc.statistics.R
-c6636ffb1ee006224e2b89490404c03e *R/MC.Xmcupo.statistics.R
+f1d5286c6e9fb65b919ead8466b38d31 *R/MC.Xmcupo.statistics.R
 44d50e2bca9fa8a4a410dae68fb2ba6d *R/MC.Xoc.statistics.R
 a8e5e67a49ea3a382241a8783f5ac03e *R/MC.Xsc.statistics.R
 b44d25adbe8f19581e3d1acdff5ca515 *R/MC.ZT.statistics.R
@@ -48,12 +48,12 @@ d83d31b9ac84d7ed645dfcc3993bf0ad *man/DM.MoM.Rd
 48bc6dcee51f8ff4a70ba832652250df *man/Dirichlet.multinomial.Rd
 464ae87158ad73b45af0aeca9e113bc2 *man/HMP-internal.Rd
 165b2e17275c61327b357c4a4dc113e1 *man/HMP-package.Rd
-76c8118de264a9f9ae2b2bfa6ba12b5c *man/MC.Xdc.statistics.Rd
-a58f194b0b1adcf3e6001559ce2985ab *man/MC.Xmc.statistics.Rd
-3c3b509e739c4292aa76c06054916810 *man/MC.Xmcupo.statistics.Rd
-3c3fb5a813152648d631dab23f6c442f *man/MC.Xoc.statistics.Rd
-ce75eed19419a1579bbc7b6503c0358c *man/MC.Xsc.statistics.Rd
-4f9105e532f90f0ac5b751d04723da8f *man/MC.ZT.statistics.Rd
+011b64eeeff93c67d41bdd449bd2e78c *man/MC.Xdc.statistics.Rd
+5ff6bd02ccfe130c8967d836baaf9c4b *man/MC.Xmc.statistics.Rd
+2e10031caa83733864d647fbfa156112 *man/MC.Xmcupo.statistics.Rd
+229d5fa894f724a6f83b3a5d7d9ea164 *man/MC.Xoc.statistics.Rd
+3964f1793009176e43b74de78fdea835 *man/MC.Xsc.statistics.Rd
+dda4d3f82d34abef8590c3749091e24e *man/MC.ZT.statistics.Rd
 c564c988fb2e3af5e423074d58a395c5 *man/Multinomial.Rd
 f1fbb7a27e0e6a71eaea1e63f175ea69 *man/Xdc.sevsample.Rd
 2f0e550750ede989ab0b61e2f5f42f9f *man/Xmc.sevsample.Rd

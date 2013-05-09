@@ -1,3 +1,16 @@
+CHANGES IN HMP VERSION 1.3.1
+
+CHANGES
+
+* Changed the MC example files to use "DM.MoM" instead of "dirmult" for speed
+
+
+BUG FIXES
+
+* Fixed a bug in MC.Xmcupo.statistics that produced a incorrect result under type="ha"
+
+
+
 CHANGES IN HMP VERSION 1.3
 
 CHANGES

@@ -24,7 +24,7 @@ K <- length(pi0)
 for (i in index)
 group.parameter[[i]] <- c(pi0, group.theta[i], Nrs[[i]])
 }else if(tolower(type) == "ha"){
-K <- nrow(group.pi)
+K <- ncol(group.pi)
 for (i in index) 
 group.parameter[[i]] <- c(group.pi[i,], group.theta[i], Nrs[[i]])
 }else{

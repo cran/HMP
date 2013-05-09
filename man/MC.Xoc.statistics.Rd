@@ -38,9 +38,9 @@
 	data(tonsils)
 	
 	### Get a list of dirichlet-multinomial parameters for the data
-	fit.saliva <- dirmult(saliva) 
-	fit.throat <- dirmult(throat)
-	fit.tonsils <- dirmult(tonsils) 
+	fit.saliva <- DM.MoM(saliva) 
+	fit.throat <- DM.MoM(throat)
+	fit.tonsils <- DM.MoM(tonsils)
 	
 	### Set up the number of Monte-Carlo experiments
 	### We set MC=1 due to CRAN restrictions, Please set MC to be at least 1,000
@@ -56,8 +56,10 @@
 	mc.xoc_check1 <- MC.Xoc.statistics(group.Nrs, MC, fit.tonsils$gamma, 3, "hnull")
 	mc.xoc_check1 
 	
+	\dontrun{
 	### Computing Power of the test statistics (1 - Type II error)
 	group.alphap <- rbind(fit.saliva$gamma, fit.throat$gamma, fit.tonsils$gamma)
 	mc.xoc_check2 <- MC.Xoc.statistics(group.Nrs, MC, group.alphap, 3, "ha")
 	mc.xoc_check2
+	}
 }
