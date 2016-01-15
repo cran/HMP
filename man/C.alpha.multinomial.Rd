@@ -42,12 +42,6 @@
 \examples{
 	data(saliva)
 	
-	### Change the number of display digits so our output looks better
-	defaultd <- .Options$digits
-	options(digits=5)
-	
 	calpha_check <- C.alpha.multinomial(saliva)
 	calpha_check
-	
-	options(digits=defaultd) ### Set the number of digits back for the user
 }

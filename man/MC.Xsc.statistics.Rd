@@ -3,7 +3,7 @@
 \title{Size and Power for the One Sample RAD Probability-Mean Test Comparison}
 \description{This Monte-Carlo simulation procedure provides the power and size of the one sample RAD probability-mean test, using the Generalized Wald-type statistic.}
 
-\usage{MC.Xsc.statistics(Nrs, MC, fit, pi0, type = "ha", siglev = 0.05)}
+\usage{MC.Xsc.statistics(Nrs, MC, fit, pi0 = NULL, type = "ha", siglev = 0.05)}
 
 \arguments{
   \item{Nrs}{A vector specifying the number of reads/sequence depth for each sample.}
@@ -35,17 +35,17 @@
 	fit.tonsils <- DM.MoM(tonsils) 
 	
 	### Set up the number of Monte-Carlo experiments
-	### We set MC=1 due to CRAN restrictions, Please set MC to be at least 1,000
-	MC <- 1 
+	### We use 1 for speed, should be around 10,000
+	MC <- 1
 	
 	### Generate a random vector of number of reads per sample
 	Nrs <- rep(15000, 25)
 	
 	### Computing size of the test statistics (Type I error)
-	mc.xsc_check1 <- MC.Xsc.statistics(Nrs, MC, fit.tonsils, fit.saliva$pi, "hnull", 0.05)
+	mc.xsc_check1 <- MC.Xsc.statistics(Nrs, MC, fit.tonsils, fit.saliva$pi, "hnull")
 	mc.xsc_check1
 	
-	### Computing Power of the test statistics (1 - Type II error)
-	mc.xsc_check2 <- MC.Xsc.statistics(Nrs, MC, fit.throat,  fit.tonsils$pi, "ha", 0.01)
+	### Computing Power of the test statistics (Type II error)
+	mc.xsc_check2 <- MC.Xsc.statistics(Nrs, MC, fit.throat, fit.tonsils$pi)
 	mc.xsc_check2
 }

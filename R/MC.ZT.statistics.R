@@ -4,27 +4,22 @@ if(missing(Nrs) || missing(MC) || missing(fit))
 stop("Nrs, MC and/or fit missing.")
 
 for(n in Nrs){
-if(all(n!=n[1])){
+if(any(n!=n[1])){
 warning("Unequal number of reads across samples.")
 break
 }
 }
 
-MCC <- as.matrix(seq(1, 1, length=MC))
-Nrs <- t(t(Nrs))
-ZTt <- t(apply(MCC, 1, function(x){ZT.statistics.Hnull.Ha(Nrs, fit, type)}))
+ZTt <- matrix(0, MC, 2)
+for(i in 1:MC)
+ZTt[i,] <- ZT.statistics.Hnull.Ha(Nrs, fit, type)
 
-tpval <- apply(as.matrix(ZTt[,2]), 2, function(t){
-q.alpha <- qchisq(p=(1-siglev), df=length(fit$pi)-1, ncp=0, lower.tail=TRUE)
-ret <- sum((t[t!="NaN"]>q.alpha)/(sum(t!="NaN")))
-return(ret)
-})
+qAlpha <- qchisq(p=(1-siglev), df=length(fit$pi)-1, ncp=0, lower.tail=TRUE)
 
-zpval <- apply(as.matrix(ZTt[,1]), 2, function(t){
-q.alpha <- qchisq(p=(1-siglev), df=length(fit$pi)-1, ncp=0, lower.tail=TRUE)
-ret <- sum((t[t!="NaN"]>q.alpha)/(sum(t!="NaN")))
-return(ret)
-})
+z <- ZTt[,1]
+t <- ZTt[,2]
+zpval <- sum((z[z != "NaN"] > qAlpha)/(sum(z != "NaN")))
+tpval <- sum((t[t != "NaN"] > qAlpha)/(sum(t != "NaN")))
 
 return(cbind(zpval, tpval))
 }

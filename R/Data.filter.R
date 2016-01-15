@@ -15,9 +15,9 @@ data <- data[apply(data, 1, sum)>reads.crit, ,drop=FALSE]
 if(tolower(order.type) == "sample"){
 data <- t(apply(data, 1, function(x){x[order(x, decreasing=TRUE)]}))
 }else if(tolower(order.type) == "data"){
-data <- data[,order(apply(data, 2, sum), decreasing=TRUE)]
+data <- data[,order(colSums(data), decreasing=TRUE)]
 }else{
-data <- data[,order(apply(data, 2, sum), decreasing=TRUE)]
+data <- data[,order(colSums(data), decreasing=TRUE)]
 warning(sprintf("order.type defaulting to 'data'. '%s' not recognized.", as.character(order.type)))
 }
 
@@ -25,7 +25,8 @@ if(nrow(data) < 2)
 stop("Reads.crit is so large that it excludes all but one sample.  Please try lowering its value.")
 
 data <- data[,apply(data, 2, sum)>0]
-dataK <- cbind(data[,1:K], as.matrix(apply(as.matrix(data[,(K+1):ncol(data)]), 1, sum)))
+data <- cbind(data[,1:K], as.matrix(apply(as.matrix(data[,(K+1):ncol(data)]), 1, sum)))
+colnames(data)[K+1] <- "Others"
 
-return(dataK)
+return(data)
 }

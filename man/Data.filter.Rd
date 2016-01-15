@@ -29,5 +29,6 @@
 	
 	### Excludes all samples with fewer than 1000 reads and collapses
 	### taxas with 11th or smaller abundance into one category 
-	filter_data <- Data.filter(saliva, "sample", 1000, 10) 
+	filter_data <- Data.filter(saliva, "sample", 1000, 10)
+	filter_data[1:5, 1:5]
 }

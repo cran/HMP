@@ -1,3 +1,19 @@
+CHANGES IN HMP VERSION 1.4
+
+CHANGES
+
+* Changed several functions to improve performance
+
+* MC.Xdc.statistic and MC.Xoc.statistics now calculates n.groups themselves
+
+* Xmcupo.sevsample now calculates K itself
+
+* Added a function to format and combine multiple data sets with different taxa
+
+* Added a Kullback Leiber function
+
+
+
 CHANGES IN HMP VERSION 1.3.1
 
 CHANGES
@@ -32,7 +48,7 @@ CHANGES
 
 * Changed Xdc.sevsample to select between 'mle' and 'mom' estimators.
 
-* Added several warnings/notes clarifying that the value of MC  should be >1000 in the MC.functions
+* Added several warnings/notes clarifying that the value of MC should be >1000 in the MC.functions
 
 * Added several warnings/notes clarifying the use of different number of reads in a sample
 

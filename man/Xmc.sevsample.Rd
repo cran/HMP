@@ -34,12 +34,6 @@
 	fit.saliva <- dirmult(saliva) 
 	mygroup <- list(throat[,1:15], tonsils[,1:15])
 	
-	### Change the number of display digits so our output looks better
-	defaultd <- .Options$digits
-	options(digits=5)
-	
-	xmc.sev_check <- Xmc.sevsample(mygroup, fit.saliva$pi)
+	xmc.sev_check <- Xmc.sevsample(mygroup, fit.saliva$pi[1:15])
 	xmc.sev_check
-	
-	options(digits=defaultd) ### Set the number of digits back for the user
 }

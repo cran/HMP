@@ -18,6 +18,7 @@
 \alias{ZT.statistics.Hnull.Ha}
 \alias{loglikDM}
 \alias{weirMoM}
+\alias{LLDM}
 
 \title{Internal Functions}
 \description{These files are only called from inside other functions and are therefore not documented here.}

@@ -17,8 +17,9 @@
 \examples{
 	data(saliva)
 	data(throat)
-	group.data <- list(saliva, throat)
+
+	mygroup <- list(saliva, throat)
 	
-	pio <- pioest(group.data)
+	pio <- pioest(mygroup)
 	pio
 }

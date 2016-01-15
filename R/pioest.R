@@ -5,7 +5,7 @@ stop("data.groups missing.")
 
 par.groups <- lapply(group.data, function(x){
 p <- DM.MoM(x)
-p$reads <- apply(x,1,sum)
+p$reads <- rowSums(x)
 return(p) 
 })
 

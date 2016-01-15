@@ -6,15 +6,14 @@
 	using the likelihood-ratio-test statistics.
 }
 
-\usage{MC.Xdc.statistics(Nrs, MC, alphap, n.groups, type = "ha", siglev = 0.05, est = "mom")}
+\usage{MC.Xdc.statistics(Nrs, MC, alphap, type = "ha", siglev = 0.05, est = "mom")}
 
 \arguments{
   \item{Nrs}{A list specifying the number of reads/sequence depth for each sample in a group with one group per list entry.}
   \item{MC}{Number of Monte-Carlo experiments.  In practice this should be at least 1,000.}
   \item{alphap}{
-		If \code{"hnull"}: A matrix where rows are vectors of alpha parameters for each group. \cr
+		If \code{"hnull"}: A matrix where rows are vectors of alpha parameters for the reference group. \cr
 		If \code{"ha"}: A matrix consisting of vectors of alpha parameters for each taxa in each group.}
-  \item{n.groups}{The number of groups to compare.}
   \item{type}{
 		If \code{"hnull"}: Computes the size of the test.\cr
 		If \code{"ha"}: Computes the power of the test. (default)}
@@ -46,8 +45,8 @@
 	fit.tonsils <- DM.MoM(tonsils)
 	
 	### Set up the number of Monte-Carlo experiments
-	### We set MC=1 due to CRAN restrictions, Please set MC to be at least 1,000
-	MC <- 1 
+	### We use 1 for speed, should be around 10,000
+	MC <- 1
 	
 	### Generate a random vector of number of reads per sample
 	Nrs1 <- rep(12000, 9)
@@ -56,11 +55,11 @@
 	group.Nrs <- list(Nrs1, Nrs2, Nrs3)
 	
 	### Computing size of the test statistics (Type I error)
-	mc.xdc_check1 <- MC.Xdc.statistics(group.Nrs, MC, fit.saliva$gamma, 3, "hnull", .05, "mom")
+	mc.xdc_check1 <- MC.Xdc.statistics(group.Nrs, MC, fit.saliva$gamma, "hnull")
 	mc.xdc_check1
-		
-	### Computing Power of the test statistics (1 - Type II error)
+	
+	### Computing Power of the test statistics (Type II error)
 	group.alphap <- rbind(fit.saliva$gamma, fit.throat$gamma, fit.tonsils$gamma)
-	mc.xdc_check2 <- MC.Xdc.statistics(group.Nrs, MC, group.alphap, 3, "ha", 0.05, "mom")
+	mc.xdc_check2 <- MC.Xdc.statistics(group.Nrs, MC, group.alphap, siglev=0.01)
 	mc.xdc_check2
 }

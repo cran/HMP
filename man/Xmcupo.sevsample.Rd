@@ -7,11 +7,10 @@
 	The statistics assumes that a common RAD probability-mean vector for comparison under the null hypothesis is unknown.
 }
 
-\usage{Xmcupo.sevsample(group.data, K)}
+\usage{Xmcupo.sevsample(group.data)}
 
 \arguments{
   \item{group.data}{A list where each element is a matrix of taxonomic counts(columns) for each sample(rows).}
-  \item{K}{The number of taxa.}
 }
 
 \details{Note: The matrices in \code{group.data} must contain the same taxa, in the same order.}
@@ -32,12 +31,6 @@
 	
 	mygroup <- list(throat[,1:15], tonsils[,1:15], saliva[,1:15])
 	
-	### Change the number of display digits so our output looks better
-	defaultd <- .Options$digits
-	options(digits=5)
-	
-	xmcupo.sev_check <- Xmcupo.sevsample(mygroup, 15)
+	xmcupo.sev_check <- Xmcupo.sevsample(mygroup)
 	xmcupo.sev_check
-	
-	options(digits=defaultd) ### Set the number of digits back for the user
 }

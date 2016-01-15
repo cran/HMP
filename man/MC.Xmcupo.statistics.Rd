@@ -41,8 +41,8 @@
 	fit.tonsils <- DM.MoM(tonsils) 
 	
 	### Set up the number of Monte-Carlo experiments
-	### We set MC=1 due to CRAN restrictions, Please set MC to be at least 1,000
-	MC <- 1 
+	### We use 1 for speed, should be around 10,000
+	MC <- 1
 	
 	### Generate a random vector of number of reads per sample
 	Nrs1 <- rep(12000, 10)
@@ -52,13 +52,13 @@
 	
 	### Computing size of the test statistics (Type I error)
 	group.theta <- c(fit.throat$theta, fit.tonsils$theta)
-	mc.xmcupo_check1 <- MC.Xmcupo.statistics(group.Nrs, MC, fit.saliva$pi, ,
-		group.theta, "hnull", 0.01)
+	mc.xmcupo_check1 <- MC.Xmcupo.statistics(group.Nrs, MC, 
+			fit.saliva$pi, group.theta=group.theta, type="hnull")
 	mc.xmcupo_check1
 	
-	### Computing Power of the test statistics (1 - Type II error)
+	### Computing Power of the test statistics (Type II error)
 	pi_2grp <- rbind(fit.throat$pi, fit.tonsils$pi)
-	mc.xmcupo_check2 <- MC.Xmcupo.statistics(group.Nrs, MC, fit.saliva$pi, 
-		pi_2grp, group.theta, "ha", 0.01)
+	mc.xmcupo_check2 <- MC.Xmcupo.statistics(group.Nrs, MC, 
+			fit.saliva$pi, pi_2grp, group.theta)
 	mc.xmcupo_check2
 }

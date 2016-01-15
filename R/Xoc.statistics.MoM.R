@@ -1,20 +1,17 @@
 Xoc.statistics.MoM <-
 function(group.data){
-if(missing(group.data))
-stop("group.data missing.")
-
 fit <- lapply(group.data, DM.MoM)
 logliks <- unlist(lapply(fit, function(x){x$loglik}))
 groupData <- NULL
-n.groups <- length(group.data)
+numGrps <- length(group.data)
 
-for(i in 1:n.groups)
+for(i in 1:numGrps)
 groupData <- rbind(groupData, group.data[[i]])
 fit.group <- DM.MoM(groupData)
 
 pigroups <- lapply(fit, function(x){x$pi})
 thetagroup <- fit.group$theta
-indexp <- as.matrix(1:n.groups)
+indexp <- as.matrix(1:numGrps)
 equal.theta.loglik <- sum(apply(indexp, 1, 
 function(x){loglikDM(group.data[[x]], pigroups[[x]]*(1-thetagroup)/thetagroup)}))
 

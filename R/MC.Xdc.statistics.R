@@ -1,9 +1,7 @@
 MC.Xdc.statistics <-
-function(Nrs, MC, alphap, n.groups, type="ha", siglev=0.05, est="mom") {
-if(missing(Nrs) || missing(alphap) || missing(n.groups) || missing(MC))
-stop("Nrs, alphap, n.groups and/or MC missing.")
-
-MCC <- as.matrix(seq(1, 1, length=MC))
+function(Nrs, MC, alphap, type="ha", siglev=0.05, est="mom") {
+if(missing(Nrs) || missing(alphap) || missing(MC))
+stop("Nrs, alphap and/or MC missing.")
 
 if(tolower(type) == "hnull"){
 K <- length(alphap)
@@ -14,18 +12,19 @@ stop(sprintf("Type '%s' not found. Type must be 'ha' for power or 'hnull' for si
 }
 
 for(n in Nrs){
-if(all(n!=n[1])){
+if(any(n!=n[1])){
 warning("Unequal number of reads across samples.")
 break
 }
 }
 
-Xdc <- t(t(apply(MCC, 1, function(x){Xdc.statistics.Hnull.Ha(alphap, Nrs, n.groups, type, est)})))
+numGroups <- length(Nrs)
+Xdc <- rep(0, MC)
+for(i in 1:MC)
+Xdc[i] <- Xdc.statistics.Hnull.Ha(alphap, Nrs, numGroups, type, est)
 
-Xdc_pval <- apply(Xdc, 2, function(t){
-q.alpha <- qchisq(p=(1-siglev), df=(n.groups-1)*K, ncp=0, lower.tail=TRUE)
-sum((t[t!="NaN"]>q.alpha)/(sum(t!="NaN")))
-})
+q.alpha <- qchisq(p=(1-siglev), df=(numGroups-1)*K, ncp=0, lower.tail=TRUE)
+Xdc_pval <- sum((Xdc[Xdc != "NaN"] > q.alpha)/(sum(Xdc != "NaN")))
 
 return(Xdc_pval)
 }

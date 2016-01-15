@@ -37,5 +37,5 @@
 	fit.saliva <- dirmult(saliva) 
 	
 	dirmult_data <- Dirichlet.multinomial(Nrs, fit.saliva$gamma)
-	dirmult_data
+	dirmult_data[1:5, 1:5]
 }

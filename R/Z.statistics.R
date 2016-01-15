@@ -4,7 +4,7 @@ Num1 <- sum(data)
 Num2 <- sum(apply(data, 2, function(x){
 p <- sum((x-1)*x) 
 return(p)
-})/apply(data, 2, sum)) 
+})/colSums(data)) 
 Num3 <- sum(apply(data, 1, function(x){
 nx <- sum(x)
 b <- nx*(nx-1)

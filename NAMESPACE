@@ -1,1 +1,6 @@
 exportPattern("^[[:alpha:]]+")
+import("dirmult")
+importFrom("grDevices", "rainbow")
+importFrom("graphics", "barplot")
+importFrom("stats", "dist", "pchisq", "qchisq", "rmultinom")
+importFrom("foreach", "%dopar%")

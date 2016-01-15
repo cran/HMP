@@ -6,33 +6,32 @@ if(missing(group.pi) && tolower(type) == "ha")
 stop("group.pi missing.")
 
 for(n in Nrs){
-if(all(n!=n[1])){
+if(any(n!=n[1])){
 warning("Unequal number of reads across samples.")
 break
 }
 }
 
-MCC <- as.matrix(seq(1, 1, length=MC))
-n.groups <- length(group.theta)
-index <- as.matrix(seq(1:n.groups))
-group.parameter <- list()
+numGroups <- length(group.theta)
+group.parameter <- vector("list", numGroups)
 K <- length(pi0)
 
 if(tolower(type) == "hnull"){
-for (i in index)
+for (i in 1:numGroups)
 group.parameter[[i]] <- c(pi0, group.theta[i], Nrs[[i]])
 }else if(tolower(type) == "ha"){
-for (i in index) 
+for (i in 1:numGroups) 
 group.parameter[[i]] <- c(group.pi[i,], group.theta[i], Nrs[[i]])
 }else{
 stop(sprintf("Type '%s' not found. Type must be 'ha' for power or 'hnull' for size.\n", as.character(type)))
 }
 
-Xmc <- t(t(apply(MCC, 1, function(x) {Xmc.statistics.Hnull.Ha(K, pi0, group.parameter)})))
-Xmc_pval <- apply(Xmc, 2, function(t){
+Xmc <- rep(0, MC)
+for(i in 1:MC)
+Xmc[i] <- Xmc.statistics.Hnull.Ha(K, pi0, group.parameter)
+
 q.alpha <- qchisq(p=(1-siglev), df=length(group.theta)*(K-1), ncp=0, lower.tail=TRUE)
-sum((t[t!="NaN"]>q.alpha)/(sum(t!="NaN")))
-})
+Xmc_pval <- sum((Xmc[Xmc != "NaN"] > q.alpha)/(sum(Xmc != "NaN")))
 
 return(Xmc_pval)
 }

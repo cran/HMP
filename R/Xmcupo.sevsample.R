@@ -1,26 +1,25 @@
 Xmcupo.sevsample <-
-function(group.data, K){
-if(missing(group.data) || missing(K))
-stop("group.data and/or K missing.")
+function(group.data){
+if(missing(group.data))
+stop("group.data is missing.")
 
-n.groups <- length(group.data)
-index <- as.matrix(seq(1:n.groups))
-group.parameter.estimated <- list()
+K <- ncol(group.data[[1]])
+numGrps <- length(group.data)
 
-for(x in index){
-data <- group.data[[x]]
-nreads.data <- as.matrix(apply(data, 1, sum))
-
-pi.MoM <- apply(data, 2, sum)/sum(apply(data, 2, sum))
-theta.MoM <- weirMoM(data)
-group.parameter.estimated[[x]] <- c(pi.MoM, theta.MoM, t(nreads.data))
+groupParameterEstimated <- vector("list", numGrps)
+for(i in 1:numGrps){
+data <- group.data[[i]]
+nreads <- rowSums(data)
+pi <- colSums(data)/sum(colSums(data))
+theta <- weirMoM(data, pi)
+groupParameterEstimated[[i]] <- c(pi, theta, nreads)
 }
 
-Xmcupo <- Xmcupo.statistics(group.parameter.estimated, K)
-p.value <- 1-pchisq(q=Xmcupo, df=(n.groups-1)*(K-1), ncp=0, lower.tail=TRUE)
+Xmcupo <- Xmcupo.statistics(groupParameterEstimated, K)
+pvalue <- 1-pchisq(q=Xmcupo, df=(numGrps-1)*(K-1), ncp=0, lower.tail=TRUE)
 
-sevRAD.mean.test.upo <- list(Xmcupo, p.value)
-names(sevRAD.mean.test.upo) <- c("Xmcupo statistics", "p value")
+ret <- list(Xmcupo, pvalue)
+names(ret) <- c("Xmcupo statistics", "p value")
 
-return(sevRAD.mean.test.upo)
+return(ret)
 }

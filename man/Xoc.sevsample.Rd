@@ -40,12 +40,6 @@
 	
 	mygroup <- list(saliva[,1:10], tonsils[,1:10])
 	
-	### Change the number of display digits so our output looks better
-	defaultd <- .Options$digits
-	options(digits=5)
-	
 	xoc.sev_check <- Xoc.sevsample(mygroup)
 	xoc.sev_check 
-	
-	options(digits=defaultd) ### Set the number of digits back for the user
 }

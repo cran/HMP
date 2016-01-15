@@ -3,8 +3,9 @@
 \alias{HMP}
 \docType{package}
 \title{Hypothesis Testing and Power Calculations for Comparing Metagenomic Samples from HMP}
+
 \description{
-	Generating data matrices following Multinomial and Dirichlet-Multinomial distributions, 
+	This package provides tools for: Generating data matrices following Multinomial and Dirichlet-Multinomial distributions, 
 	Computing the following test-statistics and their corresponding p-values, and Computing the power and size 
 	of the tests described above using Monte-Carlo simulations.
 }

@@ -24,12 +24,6 @@
 	### Get a list of dirichlet-multinomial parameters for the data
 	fit.saliva <- dirmult(saliva) 
 	
-	### Change the number of display digits so our output looks better
-	defaultd <- .Options$digits
-	options(digits=5)
-	
 	xsc.one_check <- Xsc.onesample(throat, fit.saliva$pi)
 	xsc.one_check
-	
-	options(digits=defaultd) ### Set the number of digits back for the user
 }

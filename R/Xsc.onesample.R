@@ -3,7 +3,7 @@ function(data, pi0){
 if(missing(data) || missing(pi0))
 stop("data and/or pi0 missing.")
 
-nreads <- apply(data, 1, sum)
+nreads <- rowSums(data)
 fit.MoM <- DM.MoM(data)
 MoM.theta <- fit.MoM$theta
 MoM.pi <- fit.MoM$pi

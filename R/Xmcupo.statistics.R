@@ -1,22 +1,18 @@
 Xmcupo.statistics <-
 function(group.parameter, K){
-n.groups <- length(group.parameter)
-index <- as.matrix(seq(1:n.groups))
+numGrps <- length(group.parameter)
+Xscg <- matrix(0, K+1, numGrps)
+for(i in 1:numGrps){
+theta <- group.parameter[[i]][K+1]
+nreads.data <- group.parameter[[i]][-(1:(K+1))]
+nReads <- sum(nreads.data)
 
-Xscg <- apply(index, 1, function(x){
-pi <- group.parameter[[x]][1:K]
-theta <- group.parameter[[x]][K+1]
-P <- length(group.parameter[[x]])
-nreads.data <- group.parameter[[x]][(K+2):P]
-N_1Cj <- ((theta*(sum(nreads.data^2)-sum(nreads.data)) +
-sum(nreads.data))/(sum(nreads.data))^2)
-Out1 <- c(pi, N_1Cj)
-return(Out1)
-})
+N_1Cj <- (theta*(sum(nreads.data^2)-nReads) + nReads)/nReads^2
+Xscg[,i] <- c(group.parameter[[i]][1:K], N_1Cj)
+}
 
 pi0 <- (Xscg[1:K,] %*% as.matrix(1/Xscg[K+1,]))/sum(1/Xscg[K+1,])
-Xmcupo <- sum((1/Xscg[K+1,]) * apply((Xscg[1:K,]-pi0 %*% 
-matrix(1,1,n.groups))^2, 2, function(x){sum(x/pi0)}))
+Xmcupo <- sum((1/Xscg[K+1,]) * apply((Xscg[1:K,]-pi0 %*% matrix(1, 1, numGrps))^2, 2, function(x){sum(x/pi0)}))
 
 return(Xmcupo)
 }

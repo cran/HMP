@@ -18,8 +18,9 @@
 \examples{
 	data(saliva)
 	data(throat)
-	group.data <- list(saliva, throat)
+
+	mygroup <- list(saliva, throat)
 	
-	effect <- Xmcupo.effectsize(group.data)
+	effect <- Xmcupo.effectsize(mygroup)
 	effect
 }

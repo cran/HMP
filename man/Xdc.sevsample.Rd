@@ -39,12 +39,7 @@
 	data(saliva) 
 	data(throat)
 	
-	### Change the number of display digits so our output looks better
-	defaultd <- .Options$digits
-	options(digits=5)
-	
+	### A test where we use the default values for initscalar and epsilon
 	xdc.sev_check <- Xdc.sevsample(list(saliva, throat))
 	xdc.sev_check
-	
-	options(digits=defaultd) ### Set the number of digits back for the user
 }
