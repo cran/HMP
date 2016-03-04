@@ -9,7 +9,7 @@ MoM.theta <- fit.MoM$theta
 MoM.pi <- fit.MoM$pi
 
 rank.Bj <- sum(pi0>0) - 1
-Xsc <- Xsc.statistics(MoM.pi, MoM.theta, nreads, pi0)
+Xsc <- Xsc.statistics(MoM.pi, MoM.theta, nreads, pi0)[1]
 p.value <- 1-pchisq(q=Xsc, df=rank.Bj, ncp=0, lower.tail=TRUE)
 
 RAD.mean.test <- list(Xsc, p.value)

@@ -1,9 +1,9 @@
-a6856a92d1a18240fb1e52c732f04238 *DESCRIPTION
+c71b61951ac1320439f2799a3d22f657 *DESCRIPTION
 4fe4aa27b8c73edf6fd5622c63562843 *NAMESPACE
-e7be93863b91cc300be54e7138b34f21 *NEWS
+8008f7c12ae0d10005efd1f813d1c007 *NEWS
 3877cb79ca8479d84c319caa3e84654c *R/Barchart.data.R
 030078a67139dba1c0b5500de5ee1ef4 *R/C.alpha.multinomial.R
-35577913fc7aaca60d378a5ed8ac5e5e *R/DM.MoM.R
+9e95f05b59d351b52601ac3457bbb1b1 *R/DM.MoM.R
 0e89ee260dfb726c11564522eb765bc4 *R/Data.filter.R
 33df998ae3b24d2a8efcec77aa27b410 *R/Dirichlet.multinomial.R
 e7dcc325b5efe7ad5f2a6946cf24c55e *R/LLDM.R
@@ -30,7 +30,7 @@ e68270756cbedb7bfa1684f92dbef25c *R/Xoc.sevsample.R
 31c9b07783f9e44c37bbb8d118eb6f1d *R/Xoc.statistics.Hnull.Ha.R
 f6e99cd1b4ca1db4c64e4ae2f38e7d7a *R/Xoc.statistics.MoM.R
 c075d2fa29debcba559f7a21bbd9577d *R/Xoc.statistics.R
-ecb1c0f563d1861e2813bf2e4d3eca54 *R/Xsc.onesample.R
+7f776ca755ee98134cb59e1c2265b6c1 *R/Xsc.onesample.R
 7fc236d537c79b1bb56be6ae7f72dccc *R/Xsc.statistics.Hnull.Ha.R
 57ee837a560ad23f343f870a180f27e2 *R/Xsc.statistics.R
 65b066e57c24d255bbd5bbd84454b4e0 *R/Z.statistics.R
