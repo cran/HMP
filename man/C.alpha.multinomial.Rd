@@ -42,6 +42,6 @@
 \examples{
 	data(saliva)
 	
-	calpha_check <- C.alpha.multinomial(saliva)
-	calpha_check
+	calpha <- C.alpha.multinomial(saliva)
+	calpha
 }

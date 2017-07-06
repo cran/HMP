@@ -30,10 +30,12 @@
 	data(throat)
 	data(tonsils)
 	
-	### Get a list of dirichlet-multinomial parameters for the data
-	fit.saliva <- dirmult(saliva) 
-	mygroup <- list(throat[,1:15], tonsils[,1:15])
+	### Get pi from the dirichlet-multinomial parameters
+	pi0 <- dirmult(saliva)$pi
 	
-	xmc.sev_check <- Xmc.sevsample(mygroup, fit.saliva$pi[1:15])
-	xmc.sev_check
+	### Combine the data sets into a single list
+	group.data <- list(throat, tonsils)
+	
+	xmc <- Xmc.sevsample(group.data, pi0)
+	xmc
 }

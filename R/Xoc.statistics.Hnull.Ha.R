@@ -1,18 +1,19 @@
 Xoc.statistics.Hnull.Ha <-
-function(Nrs, group.alphap, n.groups, type){
-group.data.null <- vector("list", n.groups)
-
-if(tolower(type) == "hnull"){
-for(x in 1:n.groups)
-group.data.null[[x]] <- Dirichlet.multinomial(Nrs[[x]], shape=group.alphap)
-}else if(tolower(type) == "ha"){
-for(x in 1:n.groups)
-group.data.null[[x]] <- Dirichlet.multinomial(Nrs[[x]], shape=group.alphap[x,]) 
-}else{
-stop(sprintf("Type '%s' not found. Type must be 'ha' for power or 'hnull' for size.\n", as.character(type)))
-}
-
-Xoc <- Xoc.statistics(group.data.null)
-
-return(Xoc)
+function(group.Nrs, group.alphap, type){
+	numGroups <- length(group.Nrs)
+	tempShape <- group.alphap
+	
+	# Generate a new set of data
+	genGroupData <- vector("list", numGroups)
+	for(i in 1:numGroups){
+		if(tolower(type) == "ha")
+			tempShape <- group.alphap[i,]
+		
+		genGroupData[[i]] <- Dirichlet.multinomial(group.Nrs[[i]], tempShape)
+	}
+	
+	# Get the xoc stats for the generated data
+	xoc <- Xoc.statistics(genGroupData)	
+	
+	return(xoc)
 }

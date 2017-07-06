@@ -6,16 +6,17 @@
 	C(\eqn{\alpha})-optimal test statistics of Kim and Margolin (1992) (t statistics) and the C(\eqn{\alpha})-optimal test statistics of (Paul et al., 1989).
 }
 
-\usage{MC.ZT.statistics(Nrs, MC, fit, type = "ha", siglev = 0.05)}
+\usage{MC.ZT.statistics(Nrs, numMC = 10, fit, type = "ha", siglev = 0.05, MC = NULL)}
 
 \arguments{
   \item{Nrs}{A vector specifying the number of reads/sequence depth for each sample.}
-  \item{MC}{Number of Monte-Carlo experiments.  In practice this should be at least 1,000.}
+  \item{numMC}{Number of Monte-Carlo experiments.  In practice this should be at least 1,000.}
   \item{fit}{A list (in the format of the output of dirmult function) containing the data parameters for evaluating either the size or power of the test.}
   \item{type}{
 		If \code{"hnull"}: Computes the size of the test.\cr
 		If \code{"ha"}: Computes the power of the test. (default)}
   \item{siglev}{Significance level for size of the test / power calculation. The default is 0.05.}
+  \item{MC}{Deprecated. Replaced with numMC for clarity.}
 }
 
 \value{A vector containing both the size of the test statistics (under \code{"hnull"}) or power (under \code{"ha"}) of the test for both the z and t statistics.}
@@ -33,17 +34,18 @@
 	fit.saliva <- DM.MoM(saliva) 
 	
 	### Set up the number of Monte-Carlo experiments
-	### We set MC=1 due to CRAN restrictions, Please set MC to be at least 1,000
-	MC <- 1 
+	### We use 1 for speed, should be at least 1,000
+	numMC <- 1
 	
-	### Generate a random vector of number of reads per sample
-	Nrs <- rep(15000, 25)
+	### Generate the number of reads per sample
+	### The first number is the number of reads and the second is the number of subjects
+	nrs <- rep(15000, 25)
 	
 	### Computing size of the test statistics (Type I error)
-	mc.zt_check1 <- MC.ZT.statistics(Nrs, MC, fit.saliva, "hnull") 
-	mc.zt_check1
+	pval1 <- MC.ZT.statistics(nrs, numMC, fit.saliva, "hnull") 
+	pval1
 	
-	### Computing Power of the test statistics (1 - Type II error)
-	mc.zt_check2 <- MC.ZT.statistics(Nrs, MC, fit.saliva, "ha")
-	mc.zt_check2
+	### Computing Power of the test statistics (Type II error)
+	pval2 <- MC.ZT.statistics(nrs, numMC, fit.saliva)
+	pval2
 }

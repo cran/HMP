@@ -1,24 +1,23 @@
 Xdc.statistics.Hnull.Ha <-
-function(alphap, Nrs, n.groups, type, est){
-group.data.null <- vector("list", n.groups)
-
-if(tolower(type) == "hnull"){
-for(x in 1:n.groups)
-group.data.null[[x]] <- Dirichlet.multinomial(Nrs[[x]], shape=alphap)
-}else if(tolower(type) == "ha"){
-for(x in 1:n.groups)
-group.data.null[[x]] <- Dirichlet.multinomial(Nrs[[x]], shape=alphap[x,]) 
-}else{
-stop(sprintf("Type '%s' not found. Type must be 'ha' for power or 'hnull' for size.\n", as.character(type)))
-}
-
-if(tolower(est) == "mle"){
-Xdc <- Xdc.statistics(group.data.null)
-}else if(tolower(est) == "mom"){
-Xdc <- Xdc.statistics.MoM(group.data.null)
-}else{
-stop(sprintf("Est '%s' not found. Est must be 'mle' or 'mom'.", as.character(est)))
-}
-
-return(Xdc)
+function(alphap, group.Nrs, type, est){
+	numGroups <- length(group.Nrs)
+	tempShape <- alphap
+	
+	# Generate a new set of data
+	genGroupData <- vector("list", numGroups)
+	for(i in 1:numGroups){
+		if(tolower(type) == "ha")
+			tempShape <- alphap[i,]
+		
+		genGroupData[[i]] <- Dirichlet.multinomial(group.Nrs[[i]], tempShape)
+	}
+	
+	# Get the xdc stats for the generated data
+	if(tolower(est) == "mle"){
+		xdc <- Xdc.statistics(genGroupData)
+	}else{
+		xdc <- Xdc.statistics.MoM(genGroupData)
+	}
+	
+	return(xdc)
 }

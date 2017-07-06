@@ -1,3 +1,33 @@
+CHANGES IN HMP VERSION 1.5
+
+CHANGES
+
+* Tidied up every function's code, comments, and variable names
+
+* Several function parameter names were changed.  The old names remain to support backwards compatibility.
+
+* kullbackLieber was renamed to Kullback.Leibler.  kullbackLieber now just calls Kullback.Leibler.
+
+* Added Plot.MDS to plot data
+
+* Added Est.PI to estimate the pi vector and plot it with Plot.Pi 
+
+* Changed data.filter to allow for percentage based filtering
+
+* Added a function for testing paired data (Test.Paired)
+
+* Added a function that uses rpart to find groups within the data (DM.Rpart and DM.Rpart.Perm)
+
+* Added a function that use GA to find taxa that separate 2 groups (DM.GA and DM.GA.Consensus)
+
+BUG FIXES
+
+* DM.MoM can now take a single subject
+
+* Added 1 to the numerator and denominators for permutation tests to prevent pvalues = 0
+
+
+
 CHANGES IN HMP VERSION 1.4.3
 
 BUG FIXES

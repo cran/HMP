@@ -1,18 +1,16 @@
 Z.statistics <-
 function(data){
-Num1 <- sum(data)
-Num2 <- sum(apply(data, 2, function(x){
-p <- sum((x-1)*x) 
-return(p)
-})/colSums(data)) 
-Num3 <- sum(apply(data, 1, function(x){
-nx <- sum(x)
-b <- nx*(nx-1)
-return(b)
-}))
-Denominator <- sqrt(2*(ncol(data)-1) * Num3)
-
-Z <- (Num1*Num2-Num3)/Denominator
-
-return(Z)
+	numTaxa <- ncol(data)
+	numReadsTaxa <- colSums(data)
+	numReadsSubs <- rowSums(data)
+	totalReads <- sum(data)
+	
+	taxaSqSum <- sum(apply(data, 2, function(x){sum((x-1)*x)})/numReadsTaxa) 
+	subSqSum <- sum(numReadsSubs*(numReadsSubs-1))
+	
+	denom <- sqrt(2*(numTaxa-1) * subSqSum)
+	
+	Zs <- (totalReads*taxaSqSum-subSqSum)/denom
+	
+	return(Zs)
 }

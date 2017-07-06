@@ -1,19 +1,21 @@
 C.alpha.multinomial <-
 function(data){
-if(missing(data))
-stop("data missing.")
-
-T <- T.statistics(data)
-Nreads <- rowSums(data)/sum(rowSums(data))
-
-M.alpha <- diag(Nreads)-as.matrix(Nreads) %*% t(as.matrix(Nreads))
-g <- sum(diag(M.alpha %*% M.alpha)) / sum(diag(M.alpha))
-h <- (ncol(data)-1)*((sum(diag(M.alpha)))^2) / (sum(diag(M.alpha %*% M.alpha)))
-
-p.value <- 1-pchisq(q=T/g, df=h, ncp=0, lower.tail=TRUE)
-
-GoF.test <- list(T, p.value)
-names(GoF.test) <- c("T statistics", "p value")
-
-return(GoF.test)
+	if(missing(data))
+		stop("data missing.")
+	
+	perNumReadsSubs <- rowSums(data)/sum(data)
+	
+	# Get T statistic
+	Ts <- T.statistics(data)
+	
+	M.alpha <- diag(perNumReadsSubs)- as.matrix(perNumReadsSubs) %*% t(as.matrix(perNumReadsSubs))
+	g <- sum(diag(M.alpha %*% M.alpha)) / sum(diag(M.alpha))
+	df <- (ncol(data)-1)*((sum(diag(M.alpha)))^2) / (sum(diag(M.alpha %*% M.alpha)))
+	
+	# Get pvalue
+	pval <- 1-pchisq(q=Ts/g, df=df, ncp=0, lower.tail=TRUE)
+	
+	GoF.test <- list("T statistics"=Ts, "p value"=pval)
+	
+	return(GoF.test)
 }

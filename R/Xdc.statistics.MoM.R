@@ -1,15 +1,14 @@
 Xdc.statistics.MoM <-
-function(group.data){
-fit <- lapply(group.data, DM.MoM)
-
-logliks <- unlist(lapply(fit, function(x){x$loglik}))
-groupData <- NULL
-
-for(i in 1:length(group.data))
-groupData <- rbind(groupData, group.data[[i]])
-fit.group <- DM.MoM(groupData)
-
-Xdc <- -2*(fit.group$loglik-sum(logliks))
-
-return(Xdc)
+function(group.data){	
+	# Get the loglik from the fit from every data set
+	logliks <- sapply(group.data, function(x){DM.MoM(x)$loglik})
+	
+	# Get the fit assuming all in the same group
+	groupDataC <- do.call(rbind, group.data)
+	groupFit <- DM.MoM(groupDataC)	
+	
+	# Calculate the xdc
+	xdc <- -2*(groupFit$loglik-sum(logliks))
+	
+	return(xdc)
 }

@@ -21,9 +21,9 @@
 	data(saliva)
 	data(throat)
 	
-	### Get a list of dirichlet-multinomial parameters for the data
-	fit.saliva <- dirmult(saliva) 
+	### Get pi from the dirichlet-multinomial parameters
+	pi0 <- dirmult(saliva)$pi
 	
-	xsc.one_check <- Xsc.onesample(throat, fit.saliva$pi)
-	xsc.one_check
+	xsc <- Xsc.onesample(throat, pi0)
+	xsc
 }

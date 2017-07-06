@@ -6,11 +6,14 @@
 	comparison with known reference vector of proportions, using the Generalized Wald-type statistics.
 }
 
-\usage{MC.Xmc.statistics(Nrs, MC, pi0, group.pi, group.theta, type = "ha", siglev = 0.05)}
+\usage{
+	MC.Xmc.statistics(group.Nrs, numMC = 10, pi0, group.pi, group.theta, type = "ha", 
+	siglev = 0.05, MC = NULL, Nrs = NULL)
+}
 
 \arguments{
-  \item{Nrs}{A list specifying the number of reads/sequence depth for each sample in a group with one group per list entry.}
-  \item{MC}{Number of Monte-Carlo experiments.  In practice this should be at least 1,000.}
+  \item{group.Nrs}{A list specifying the number of reads/sequence depth for each sample in a group with one group per list entry.}
+  \item{numMC}{Number of Monte-Carlo experiments.  In practice this should be at least 1,000.}
   \item{pi0}{The RAD-probability mean vector.}
   \item{group.pi}{
 		If \code{"hnull"}: This argument is ignored. \cr
@@ -20,7 +23,9 @@
 		If \code{"hnull"}: Computes the size of the test.\cr
 		If \code{"ha"}: Computes the power of the test. (default)}
   \item{siglev}{Significance level for size of the test / power calculation. The default is 0.05.}
-}
+  \item{MC}{Deprecated. Replaced with numMC for clarity.}
+  \item{Nrs}{Deprecated. Replaced with group.Nrs for clarity.}
+  }
 
 \value{Size of the test statistics (under \code{"hnull"}) or power (under \code{"ha"}) of the test.}
 
@@ -41,24 +46,24 @@
 	fit.tonsils <- DM.MoM(tonsils) 
 	
 	### Set up the number of Monte-Carlo experiments
-	### We use 1 for speed, should be around 10,000
-	MC <- 1 
+	### We use 1 for speed, should be at least 1,000
+	numMC <- 1 
 	
-	### Generate a random vector of number of reads per sample
-	Nrs1 <- rep(12000, 18)
-	Nrs2 <- rep(12000, 10)
-	Nrs3 <- rep(12000, 15)
-	group.Nrs <- list(Nrs1, Nrs2, Nrs3)
+	### Generate the number of reads per sample
+	### The first number is the number of reads and the second is the number of subjects
+	nrsGrp1 <- rep(12000, 9)
+	nrsGrp2 <- rep(12000, 11)
+	group.Nrs <- list(nrsGrp1, nrsGrp2)
+	
+	group.theta <- c(0.01, 0.05)
+	pi0 <- fit.saliva$pi
 	
 	### Computing size of the test statistics (Type I error)
-	group.theta <- c(0.01, 0.05)
-	mc.xmc_check1 <- MC.Xmc.statistics(group.Nrs, MC, 
-			fit.saliva$pi, group.theta=group.theta, type="hnull")
-	mc.xmc_check1
+	pval1 <- MC.Xmc.statistics(group.Nrs, numMC, pi0, group.theta=group.theta, type="hnull")
+	pval1
 	
 	### Computing Power of the test statistics (Type II error)
-	pi_2grp <- rbind(fit.throat$pi, fit.tonsils$pi)
-	mc.xmc_check2 <- MC.Xmc.statistics(group.Nrs, MC, 
-			fit.saliva$pi, pi_2grp, group.theta, "ha")
-	mc.xmc_check2
+	group.pi <- rbind(fit.throat$pi, fit.tonsils$pi)
+	pval2 <- MC.Xmc.statistics(group.Nrs, numMC, pi0, group.pi, group.theta, "ha")
+	pval2
 }

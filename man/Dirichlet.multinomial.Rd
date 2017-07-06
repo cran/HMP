@@ -30,12 +30,13 @@
 \examples{
 	data(saliva)
 	
-	### Generate a random vector of number of reads per sample
-	Nrs <- rep(15000, 20) 
+	### Generate a the number of reads per sample
+	### The first number is the number of reads and the second is the number of subjects
+	nrs <- rep(15000, 20) 
 	
-	### Get a list of dirichlet-multinomial parameters for the data
-	fit.saliva <- dirmult(saliva) 
+	### Get gamma from the dirichlet-multinomial parameters
+	shape <- dirmult(saliva)$gamma
 	
-	dirmult_data <- Dirichlet.multinomial(Nrs, fit.saliva$gamma)
-	dirmult_data[1:5, 1:5]
+	dmData <- Dirichlet.multinomial(nrs, shape)
+	dmData[1:5, 1:5]
 }

@@ -2,10 +2,10 @@
 \alias{HMP-package}
 \alias{HMP}
 \docType{package}
-\title{Hypothesis Testing and Power Calculations for Comparing Metagenomic Samples from HMP}
+\title{Hypothesis Testing and Power Calculations for Comparing Metagenomics Samples}
 
 \description{
-	This package provides tools for: Generating data matrices following Multinomial and Dirichlet-Multinomial distributions, 
+	This package provides tools for Generating data matrices following Multinomial and Dirichlet-Multinomial distributions, 
 	Computing the following test-statistics and their corresponding p-values, and Computing the power and size 
 	of the tests described above using Monte-Carlo simulations.
 }
@@ -26,8 +26,8 @@
 		\item Perform basic data management to exclude samples with fewer than pre-specified number of reads, 
 			collapse rare taxa and order the taxa by frequency. This is useful to exclude failed samples 
 			(i.e. samples with very few reads) - \code{Data.filter}
-		\item Plot your data - \code{Barchart.data}
-		\item Generate random sample of Dirichlet Multinomial data with pre-specified parameters - \code{Dirichlet.multinomial}
+		\item Plot your data - \code{Barchart.data} 
+			\item Generate random sample of Dirichlet Multinomial data with pre-specified parameters - \code{Dirichlet.multinomial}
 	}	
 	
 	Note: Thought the description of the functions refer its application to ranked abundance distributions (RAD) data, 
@@ -41,7 +41,7 @@
 }
 
 \author{
-	Patricio S. La Rosa, Elena Deych, Berkley Shands, William D. Shannon
+	Patricio S. La Rosa, Elena Deych, Berkley Shands, Sharina Carter, William D. Shannon
 }
 
 \keyword{ package }

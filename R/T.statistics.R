@@ -1,6 +1,10 @@
 T.statistics <-
-function(data){
-T <- sum((1/colSums(data)) * apply((data-(1/sum(data))*rowSums(data) %*% t(colSums(data)))^2, 2, sum))
-
-return(T)
+function(data){	
+	numReadsTaxa <- colSums(data)
+	numReadsSubs <- rowSums(data)
+	totalReads <- sum(data)
+	
+	Ts <- sum(colSums((data - (numReadsSubs%*%t(numReadsTaxa))/totalReads)^2) / numReadsTaxa)
+	
+	return(Ts)
 }

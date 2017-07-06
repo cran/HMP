@@ -33,6 +33,6 @@
 \examples{
 	data(throat)
 	
-	dm.mom_check <- DM.MoM(throat)
-	dm.mom_check
+	fit.throat <- DM.MoM(throat)
+	fit.throat
 }

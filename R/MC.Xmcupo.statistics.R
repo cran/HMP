@@ -1,40 +1,51 @@
 MC.Xmcupo.statistics <-
-function(Nrs, MC, pi0, group.pi, group.theta, type="ha", siglev=0.05) {
-if(missing(Nrs) || missing(MC) || missing(group.theta))
-stop("Nrs, MC, and/or group.theta missing.")
-if(missing(group.pi) && tolower(type) == "ha")
-stop("group.pi missing.")
-if(missing(pi0) && tolower(type) == "hnull")
-stop("pi0 missing.")
-
-for(n in Nrs){
-if(any(n!=n[1])){
-warning("Unequal number of reads across samples.")
-break
-}
-}
-
-numGroups <- length(group.theta)
-group.parameter <- vector("list", numGroups)
-
-if(tolower(type) == "hnull"){
-K <- length(pi0)
-for(i in 1:numGroups)
-group.parameter[[i]] <- c(pi0, group.theta[i], Nrs[[i]])
-}else if(tolower(type) == "ha"){
-K <- ncol(group.pi)
-for(i in 1:numGroups) 
-group.parameter[[i]] <- c(group.pi[i,], group.theta[i], Nrs[[i]])
-}else{
-stop(sprintf("Type '%s' not found. Type must be 'ha' for power or 'hnull' for size.\n", as.character(type)))
-}
-
-Xmcupo <- rep(0, MC)
-for(i in 1:MC)
-Xmcupo[i] <- Xmcupo.statistics.Hnull.Ha(K, group.parameter)
-
-q.alpha <- qchisq(p=(1-siglev), df=length(group.theta)*(K-1), ncp=0, lower.tail=TRUE)
-Xmcupo_pval <- sum((Xmcupo[Xmcupo != "NaN"] > q.alpha)/(sum(Xmcupo != "NaN")))
-
-return(Xmcupo_pval)
+function(group.Nrs, numMC=10, pi0, group.pi, group.theta, type="ha", siglev=0.05, MC=NULL, Nrs=NULL) {
+	# Check if someone is still using Nrs
+	if(!is.null(Nrs)){
+		warning("'Nrs' is deprecated. It has been replaced with group.Nrs. View the help files for details.")
+		group.Nrs <- Nrs
+	}
+	
+	if(missing(group.theta) || missing(group.Nrs))
+		stop("group.Nrs and/or group.theta missing.")
+	if(missing(group.pi) && tolower(type) == "ha")
+		stop("group.pi missing.")
+	if(missing(pi0) && tolower(type) == "hnull")
+		stop("pi0 missing.")
+	if(tolower(type) != "ha" && tolower(type) != "hnull")
+		stop(sprintf("Type '%s' not found. Type must be 'ha' for power or 'hnull' for size.\n", as.character(type)))
+	
+	# Check if someone is still using MC
+	if(!is.null(MC)){
+		warning("'MC' is deprecated. It has been replaced with numMC. View the help files for details.")
+		numMC <- MC
+	}
+	
+	numGroups <- length(group.Nrs)
+	
+	# Create the parameters for every group
+	groupParameter <- vector("list", numGroups)
+	for (i in 1:numGroups){
+		if(tolower(type) == "ha"){
+			numTaxa <- ncol(group.pi)
+			tempPi <- group.pi[i,]
+		}else{
+			numTaxa <- length(pi0)
+			tempPi <- pi0
+		}
+		groupParameter[[i]] <- list(pi=tempPi, theta=group.theta[i], nrs=group.Nrs[[i]])
+	}
+	
+	# Get all the Xmcupo values
+	XmcupoStatVector <- rep(0, numMC)
+	for(i in 1:numMC)
+		XmcupoStatVector[i] <- Xmcupo.statistics.Hnull.Ha(groupParameter)
+	
+	# Get a reference value from the real data
+	qAlpha <- qchisq(p=(1-siglev), df=length(group.theta)*(numTaxa-1), ncp=0, lower.tail=TRUE)
+	
+	# Calculate pvalues
+	pval <- (sum(XmcupoStatVector > qAlpha) + 1)/(length(XmcupoStatVector) + 1)
+	
+	return(pval)
 }

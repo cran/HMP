@@ -9,7 +9,6 @@
 \alias{Xmcupo.statistics.Hnull.Ha}
 \alias{Xoc.statistics}
 \alias{Xoc.statistics.Hnull.Ha}
-\alias{Xoc.statistics.MoM}
 \alias{Xsc.statistics}
 \alias{Xsc.statistics.Hnull.Ha}
 \alias{ZT.statistics}
@@ -18,11 +17,22 @@
 \alias{ZT.statistics.Hnull.Ha}
 \alias{loglikDM}
 \alias{weirMoM}
-\alias{LLDM}
+\alias{getBC}
+\alias{pruneRpart}
+\alias{rpartInit}
+\alias{rpartEval}
+\alias{rpartSplit}
+\alias{hmp.pkg.env}
+\alias{pioest}
+\alias{gaScoring}
+\alias{gaCreation}
+\alias{gaPlot}
+\alias{plotRpartPerm}
+\alias{calcRpartPval}
 
 \title{Internal Functions}
 \description{These files are only called from inside other functions and are therefore not documented here.}
 
-\author{Patricio S. La Rosa, Elena Deych, Berkley Shands, William D. Shannon}
+\author{Patricio S. La Rosa, Elena Deych, Berkley Shands, Sharina Carter, William D. Shannon}
 
 \keyword{internal}

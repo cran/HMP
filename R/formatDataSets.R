@@ -1,31 +1,52 @@
 formatDataSets <-
-function(data){
-if(missing(data))
-stop("data missing.")
-
-numData <- length(data)
-if(numData < 2)
-stop("At least 2 data sets are required.")
-
-newData <- NULL
-for(i in 1:length(data)){
-newData <- merge(newData, t(data[[i]]), by=0, all=TRUE)
-rownames(newData) <- newData[,1]
-newData <- newData[,-1]
-}
-newData[is.na(newData)] <- 0
-newData <- t(newData)
-newData <- newData[,colSums(newData) != 0]
-newData <- newData[rowSums(newData) != 0,]
-newData <- newData[,order(colSums(newData), decreasing=TRUE)]
-
-retData <- vector("list", numData)
-base <- 0
-for(i in 1:numData){
-retData[[i]] <- newData[(base+1):(nrow(data[[i]])+ base),]
-base <- base + nrow(data[[i]])
-}
-
-names(retData) <- names(data)
-return(retData)
+function(group.data, data=NULL){
+	if(missing(group.data) && is.null(data))
+		stop("group.data missing.")
+	
+	# Check if data is still being used
+	if(!is.null(data) && missing(group.data))
+		group.data <- data
+	
+	# Make sure we have more than 1 data set
+	numGroups <- length(group.data)
+	if(numGroups < 2)
+		stop("At least 2 data sets are required.")
+	
+	# Merge all the data together
+	dataNames <- vector("list", numGroups)
+	newData <- NULL
+	for(i in 1:length(group.data)){		
+		tempData <- group.data[[i]]
+		
+		# Remove any all 0 subjects from the data
+		tempData <- tempData[rowSums(tempData) != 0,, drop=FALSE]
+		
+		# Save the current row names
+		dataNames[[i]] <- rownames(tempData)
+		
+		newData <- merge(newData, t(group.data[[i]]), by=0, all=TRUE)
+		rownames(newData) <- newData[,1]
+		newData <- newData[,-1]
+	}
+	
+	# Remove any nas
+	newData[is.na(newData)] <- 0
+	newData <- t(newData)
+	
+	# Remove any all 0 columns and sort them
+	newData <- newData[,colSums(newData) != 0, drop=FALSE]
+	newData <- newData[,order(colSums(newData), decreasing=TRUE)]
+	
+	# Turn the data back into a list
+	retData <- vector("list", numGroups)
+	base <- 0
+	for(i in 1:numGroups){
+		retData[[i]] <- newData[(base+1):(nrow(group.data[[i]])+ base),]
+		rownames(retData[[i]]) <- dataNames[[i]]
+		
+		base <- base + nrow(group.data[[i]])
+	}
+	
+	names(retData) <- names(group.data)
+	return(retData)
 }

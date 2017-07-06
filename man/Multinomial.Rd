@@ -19,11 +19,13 @@
 \author{Patricio S. La Rosa, Elena Deych, Berkley Shands, William D. Shannon}
 
 \examples{
-	### Generate a random vector of number of reads per sample
-	Nrs <- rep(15000, 25)
-	 
-	mypi <- c(0.4, 0.3, 0.2, .05, 0.04, .01)
+	### Generate the number of reads per sample
+	### The first number is the number of reads and the second is the number of subjects
+	nrs <- rep(15000, 25)
 	
-	mult_data <- Multinomial(Nrs, mypi)
-	mult_data
+	### Create a probability vector
+	probs <- c(0.4, 0.3, 0.2, .05, 0.04, .01)
+	
+	mData <- Multinomial(nrs, probs)
+	mData[1:5, 1:5]
 }

@@ -19,8 +19,9 @@
 	data(saliva)
 	data(throat)
 
-	mygroup <- list(saliva, throat)
+	### Combine the data sets into a single list
+	group.data <- list(saliva, throat)
 	
-	effect <- Xmcupo.effectsize(mygroup)
+	effect <- Xmcupo.effectsize(group.data)
 	effect
 }

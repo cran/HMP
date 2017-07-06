@@ -38,8 +38,11 @@
 	data(saliva) 
 	data(tonsils)
 	
-	mygroup <- list(saliva[,1:10], tonsils[,1:10])
+	### Combine the data sets into a single list
+	group.data <- list(saliva, tonsils)
 	
-	xoc.sev_check <- Xoc.sevsample(mygroup)
-	xoc.sev_check 
+	\dontrun{
+		xoc <- Xoc.sevsample(group.data)
+		xoc
+	}
 }

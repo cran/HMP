@@ -6,11 +6,14 @@
 	using the likelihood-ratio-test statistics.
 }
 
-\usage{MC.Xdc.statistics(Nrs, MC, alphap, type = "ha", siglev = 0.05, est = "mom")}
+\usage{
+	MC.Xdc.statistics(group.Nrs, numMC = 10, alphap, type = "ha", siglev = 0.05, 
+	est = "mom", MC = NULL, Nrs = NULL)
+}
 
 \arguments{
-  \item{Nrs}{A list specifying the number of reads/sequence depth for each sample in a group with one group per list entry.}
-  \item{MC}{Number of Monte-Carlo experiments.  In practice this should be at least 1,000.}
+  \item{group.Nrs}{A list specifying the number of reads/sequence depth for each sample in a group with one group per list entry.}
+  \item{numMC}{Number of Monte-Carlo experiments.  In practice this should be at least 1,000.}
   \item{alphap}{
 		If \code{"hnull"}: A matrix where rows are vectors of alpha parameters for the reference group. \cr
 		If \code{"ha"}: A matrix consisting of vectors of alpha parameters for each taxa in each group.}
@@ -20,6 +23,8 @@
   \item{siglev}{Significance level for size of the test / power calculation. The default is 0.05.}
   \item{est}{
 		The type of parameter estimator to be used with the Likelihood-ratio-test statistics, 'mle' or 'mom'. Default value is 'mom'.  (See Note 2 in details)}
+  \item{MC}{Deprecated. Replaced with numMC for clarity.}
+  \item{Nrs}{Deprecated. Replaced with group.Nrs for clarity.}
 }
 
 \value{Size of the test statistics (under \code{"hnull"}) or power (under \code{"ha"}) of the test.}
@@ -45,21 +50,23 @@
 	fit.tonsils <- DM.MoM(tonsils)
 	
 	### Set up the number of Monte-Carlo experiments
-	### We use 1 for speed, should be around 10,000
-	MC <- 1
+	### We use 1 for speed, should be at least 1,000
+	numMC <- 1
 	
-	### Generate a random vector of number of reads per sample
-	Nrs1 <- rep(12000, 9)
-	Nrs2 <- rep(12000, 11)
-	Nrs3 <- rep(12000, 12)
-	group.Nrs <- list(Nrs1, Nrs2, Nrs3)
+	### Generate the number of reads per sample
+	### The first number is the number of reads and the second is the number of subjects
+	nrsGrp1 <- rep(12000, 9)
+	nrsGrp2 <- rep(12000, 11)
+	nrsGrp3 <- rep(12000, 12)
+	group.Nrs <- list(nrsGrp1, nrsGrp2, nrsGrp3)
 	
 	### Computing size of the test statistics (Type I error)
-	mc.xdc_check1 <- MC.Xdc.statistics(group.Nrs, MC, fit.saliva$gamma, "hnull")
-	mc.xdc_check1
+	alphap <- fit.saliva$gamma
+	pval1 <- MC.Xdc.statistics(group.Nrs, numMC, alphap, "hnull")
+	pval1
 	
 	### Computing Power of the test statistics (Type II error)
-	group.alphap <- rbind(fit.saliva$gamma, fit.throat$gamma, fit.tonsils$gamma)
-	mc.xdc_check2 <- MC.Xdc.statistics(group.Nrs, MC, group.alphap, siglev=0.01)
-	mc.xdc_check2
+	alphap <- rbind(fit.saliva$gamma, fit.throat$gamma, fit.tonsils$gamma)
+	pval2 <- MC.Xdc.statistics(group.Nrs, numMC, alphap)
+	pval2
 }

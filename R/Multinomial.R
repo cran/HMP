@@ -1,19 +1,16 @@
 Multinomial <-
 function(Nrs, probs){
-if(missing(Nrs) || missing(probs))
-stop("Nrs and/or probs missing.")
-
-for(n in Nrs){
-if(any(n!=n[1])){
-warning("Unequal number of reads across samples.")
-break
-}
-}
-
-Sample.counts <- matrix(0, length(Nrs), length(probs))
-for(i in 1:length(Nrs))
-Sample.counts[i,] <- rmultinom(n=1, size=Nrs[i], prob=probs)
-data <- Sample.counts[, colSums(Sample.counts) != 0]
-
-return(data)
+	if(missing(Nrs) || missing(probs))
+		stop("Nrs and/or probs missing.")
+	
+	# Create the data from the rmultinom
+	mData <- matrix(0, length(Nrs), length(probs))
+	for(i in 1:length(Nrs))	
+		mData[i,] <- stats::rmultinom(1, Nrs[i], probs)
+	
+	# Label the created data
+	colnames(mData) <- paste("Taxa", 1:ncol(mData))
+	rownames(mData) <- paste("Sample", 1:nrow(mData))
+	
+	return(mData)
 }

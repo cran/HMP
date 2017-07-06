@@ -39,7 +39,9 @@
 	data(saliva) 
 	data(throat)
 	
-	### A test where we use the default values for initscalar and epsilon
-	xdc.sev_check <- Xdc.sevsample(list(saliva, throat))
-	xdc.sev_check
+	### Combine the data sets into a single list
+	group.data <- list(saliva, throat)
+	
+	xdc <- Xdc.sevsample(group.data)
+	xdc
 }

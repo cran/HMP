@@ -1,29 +1,31 @@
 Xmc.sevsample <-
-function(group.data, pi0){
-if(missing(group.data) || missing(pi0))
-stop("group.data and/or pi0 missing.")
-
-numGroups <- length(group.data)
-group.parameter.estimated <- vector("list", numGroups)
-
-if(ncol(group.data[[1]]) != length(pi0))
-stop("group.data and pi0 need to be the same length.")
-
-for(x in 1:numGroups){
-data <- group.data[[x]]
-nreads.data <- as.matrix(rowSums(data))
-
-pi.MoM <- colSums(data)/sum(colSums(data))
-theta.MoM <- weirMoM(data, pi.MoM)
-group.parameter.estimated[[x]] <- c(pi.MoM, theta.MoM, t(nreads.data))
-}
-
-rank.Bj <- sum(pi0>0)-1 
-Xmc <- Xmc.statistics(group.parameter.estimated, pi0)
-p.value <- 1-pchisq(q=Xmc, df=numGroups*rank.Bj, ncp=0, lower.tail=TRUE)
-
-sevRAD.mean.test <- list(Xmc, p.value)
-names(sevRAD.mean.test) <- c("Xmc statistics", "p value")
-
-return(sevRAD.mean.test)
+function(group.data, pi0){	
+	if(missing(group.data) || missing(pi0))
+		stop("group.data and/or pi0 missing.")
+	
+	# Check every data set has the same number of taxa
+	taxaCounts <- sapply(group.data, ncol)
+	numTaxa	<- length(pi0)
+	if(any(taxaCounts != numTaxa))
+		stop("Every data set must have matching taxa, including pi0")
+	
+	numGroups <- length(group.data)
+	
+	# Get the parameters for every group
+	groupParameter <- lapply(group.data, function(x){
+				# Calc pi, theta and the number of reads
+				numReadsSubs <- rowSums(x)
+				pi.MoM <- colSums(x)/sum(x)
+				theta.MoM <- weirMoM(x, pi.MoM)$theta
+				
+				return(list(pi=pi.MoM, theta=theta.MoM, nrs=numReadsSubs))
+			})
+	
+	# Get Xmc and calculate pvalue
+	Xmc <- Xmc.statistics(groupParameter, pi0)
+	pval <- 1-pchisq(q=Xmc, df=numGroups*(numTaxa-1), ncp=0, lower.tail=TRUE)
+	
+	sevRAD.mean.test <- list("Xmc statistics"=Xmc, "p value"=pval)
+	
+	return(sevRAD.mean.test)					
 }

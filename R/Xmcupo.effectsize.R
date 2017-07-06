@@ -1,38 +1,54 @@
 Xmcupo.effectsize <-
 function(group.data){
-if(missing(group.data))
-stop("data.groups missing.")
-
-par.groups <- lapply(group.data, function(x){
-p <- DM.MoM(x)
-p$reads <- rowSums(x)
-return(p)
-})
-
-N.group <- length(par.groups)
-Kc <- length(par.groups[[1]]$pi)
-N.total <- do.call(sum, lapply(par.groups, function(x){sum(x$reads)}))
-
-group.parameter.estimated <- lapply(par.groups, function(x){c(x$pi, x$theta, x$reads)})
-Xmcupo <- Xmcupo.statistics(group.parameter.estimated, K=Kc)
-
-if(Kc >= N.group){
-pi.groups <- diag(rep(1, N.group))
-}else{
-stop("The number of taxa must be greater than the number of groups.")
-}
-
-gp.max <- lapply(as.list(1:N.group), function(x,gp.1, pi.groups){
-gpp <- gp.1[[x]]
-ret <- c(pi.groups[x,], gpp$theta, gpp$reads)
-return(ret)
-}, gp.1=par.groups, pi.groups=pi.groups)
-
-Xmcupo.gp <- Xmcupo.statistics(gp.max, K=N.group)
-CramerV<- sqrt(Xmcupo[1]/(N.total*min(Kc-1, N.group-1)))
-Mod.CramerV <- sqrt(Xmcupo[1]/(Xmcupo.gp[1]*min(Kc-1, N.group-1)))
-
-result <- c(Xmcupo[1],CramerV, Mod.CramerV)
-names(result) <- c("Chi-Squared", "Cramer Phi", "Modified-Cramer Phi")
-return(result)
+	if(missing(group.data))
+		stop("group.data missing.")
+	
+	# Make sure we have the same columns
+	taxaCounts <- sapply(group.data, ncol)
+	numTaxa	<- taxaCounts[1]
+	if(any(taxaCounts != numTaxa)){
+		warning("Group columns do not match, running formatDataSets.")
+		group.data <- formatDataSets(group.data)
+		numTaxa <- ncol(group.data[[1]])
+	}
+	
+	numGroups <- length(group.data)
+	totalReads <- sum(sapply(group.data, sum))
+	
+	if(numTaxa < numGroups)
+		stop("The number of taxa must be greater than the number of groups.")
+	
+	# Get the parameters for every group
+	groupParameter <- lapply(group.data, function(x){
+				# Calc pi, theta and the number of reads
+				numReadsSubs <- rowSums(x)
+				pi.MoM <- colSums(x)/sum(x)
+				theta.MoM <- weirMoM(x, pi.MoM)$theta
+				
+				return(list(pi=pi.MoM, theta=theta.MoM, nrs=numReadsSubs))
+			})
+	
+	# Calculate Xmcupo stats for base data
+	Xmcupo <- Xmcupo.statistics(groupParameter)
+	
+	# Edit parameters to use the biggest difference between pis
+	groupParameterMax <- groupParameter
+	for(i in 1:numGroups){
+		newPi <- rep(0, numTaxa)
+		newPi[i] <- 1
+		groupParameterMax[[i]]$pi <- newPi
+	}
+	
+	# Calculate Xmcupo stats for biggest difference
+	XmcupoMax <- Xmcupo.statistics(groupParameterMax)
+	
+	# Calculate Cramers
+	CramerV	<- sqrt(Xmcupo/(totalReads*min(numTaxa-1, numGroups-1)))
+	Mod.CramerV <- sqrt(Xmcupo/XmcupoMax)
+	
+	# Calculate pvalue
+	pval <- 1-pchisq(q=Xmcupo, df=(numGroups-1)*(numTaxa-1), ncp=0, lower.tail=TRUE)
+	
+	result 	<- c("Chi-Squared"=Xmcupo, "Cramer Phi"=CramerV, "Modified-Cramer Phi"=Mod.CramerV, "P value"=pval)
+	return(result)
 }

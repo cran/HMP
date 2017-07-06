@@ -29,8 +29,9 @@
 	data(tonsils)
 	data(throat)
 	
-	mygroup <- list(throat[,1:15], tonsils[,1:15], saliva[,1:15])
+	### Combine the data sets into a single list
+	group.data <- list(saliva, throat, tonsils)
 	
-	xmcupo.sev_check <- Xmcupo.sevsample(mygroup)
-	xmcupo.sev_check
+	xmcupo <- Xmcupo.sevsample(group.data)
+	xmcupo
 }

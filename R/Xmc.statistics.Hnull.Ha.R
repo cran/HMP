@@ -1,22 +1,24 @@
 Xmc.statistics.Hnull.Ha <-
-function(K, pi0, group.parameter){
-numGroups <- length(group.parameter)
-group.parameter.estimated <- vector("list", numGroups)
-
-for(x in 1:numGroups){
-pi <- group.parameter[[x]][1:K]
-theta <- group.parameter[[x]][K+1]
-P <- length(group.parameter[[x]])
-nreads.data <- as.matrix(group.parameter[[x]][(K+2):P])
-data <- Dirichlet.multinomial(nreads.data, shape=pi*(1-theta)/theta)
-
-pi.MoM <- colSums(data)/sum(colSums(data))
-theta.MoM <- weirMoM(data, pi.MoM)
-
-group.parameter.estimated[[x]] <- c(pi.MoM, theta.MoM, t(nreads.data))
-}
-
-Xmc <- Xmc.statistics(group.parameter.estimated, pi0)
-
-return(Xmc)
+function(groupParameter, pi0){	
+	numGroups <- length(groupParameter)	
+	numTaxa <- length(pi0)
+	
+	genGroupParameter <- vector("list", numGroups)
+	for(i in 1:numGroups){
+		pi <- groupParameter[[i]]$pi
+		theta <- groupParameter[[i]]$theta
+		numReads <- groupParameter[[i]]$nrs
+		
+		# Generate a new set of data
+		genData <- Dirichlet.multinomial(numReads, pi*(1-theta)/theta)				
+		genPi <- colSums(genData)/sum(genData)
+		genTheta <- weirMoM(genData, genPi)$theta
+		
+		genGroupParameter[[i]] <- list(pi=genPi, theta=genTheta, nrs=numReads)		
+	}
+	
+	# Get the Xmc stats for the generated data
+	Xmc <- Xmc.statistics(genGroupParameter, pi0)	
+	
+	return(Xmc)
 }

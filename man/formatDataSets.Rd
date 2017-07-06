@@ -6,10 +6,12 @@
 	transforms them such that they all have the same columns of taxa.
 }
 
-\usage{formatDataSets(data)}
+\usage{formatDataSets(group.data, data)}
 
 \arguments{
-  \item{data}{A list where each element is a matrix of taxonomic counts(columns) for each sample(rows).}
+  \item{group.data}{A list where each element is a matrix of taxonomic counts(columns) for each sample(rows). 
+  		Note that the row names should correspond to sample names}
+  \item{data}{Deprecated. Replaced with group.data for clarity.}
  }
  
 \details{
@@ -28,9 +30,13 @@
 	data(saliva)
 	data(throat)
 	
+	### Set each data set to have 10 different columns
 	saliva2 <- saliva[,1:10]
 	throat2 <- throat[,11:20]
 	
-	mygroup <- list(saliva2, throat2)
-	newgroup <- formatDataSets(mygroup)
+	### Combine the data sets into a single list
+	group.data <- list(saliva2, throat2)
+	
+	formattedData <- formatDataSets(group.data)
+	formattedData[[1]][1:5, 1:5]
 }

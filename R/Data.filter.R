@@ -1,32 +1,68 @@
 Data.filter <-
-function(data, order.type, reads.crit, K){
-if(missing(data) || missing(order.type) || missing(reads.crit) || missing(K))
-stop("data, order.type, reads.crit and/or K missing.")
-
-if(K >= ncol(data))
-stop(sprintf("K is too large.  It must be smaller than %i.", ncol(data)-1))
-if(K <= 0)
-stop("K is too small.  It must be larger than 0.")
-if(reads.crit >= max(rowSums(data)))
-stop(sprintf("Reads.crit is too large.  It must be smaller than %i.", max(rowSums(data))))
-
-data <- data[apply(data, 1, sum)>reads.crit, ,drop=FALSE]
-
-if(tolower(order.type) == "sample"){
-data <- t(apply(data, 1, function(x){x[order(x, decreasing=TRUE)]}))
-}else if(tolower(order.type) == "data"){
-data <- data[,order(colSums(data), decreasing=TRUE)]
-}else{
-data <- data[,order(colSums(data), decreasing=TRUE)]
-warning(sprintf("order.type defaulting to 'data'. '%s' not recognized.", as.character(order.type)))
-}
-
-if(nrow(data) < 2)
-stop("Reads.crit is so large that it excludes all but one sample.  Please try lowering its value.")
-
-data <- data[,apply(data, 2, sum)>0]
-data <- cbind(data[,1:K], as.matrix(apply(as.matrix(data[,(K+1):ncol(data)]), 1, sum)))
-colnames(data)[K+1] <- "Others"
-
-return(data)
+function(data, order.type="data", minReads=0, numTaxa=NULL, perTaxa=NULL, K=NULL, reads.crit=NULL){
+	if(missing(data))
+		stop("data is missing.")
+	if(tolower(order.type) != "data" && tolower(order.type) != "sample")
+		stop(sprintf("'%s' not recognized, order.type must be 'data' or 'sample'", as.character(order.type)))
+	
+	# Check if K is still being used
+	if(is.null(numTaxa) && !is.null(K)){
+		warning("'K' is deprecated. It has been replaced with numTaxa. View the help files for details.")
+		numTaxa <- K
+	}
+	
+	# Check if reads.crit is still being used
+	if(!is.null(reads.crit)){
+		warning("'reads.crit' is deprecated. It has been replaced with minReads. View the help files for details.")
+		minReads <- reads.crit
+	}
+	
+	# Check if numTaxa or perTaxa is being used
+	if(!is.null(numTaxa) && !is.null(perTaxa))
+		stop("numTaxa and perTaxa cannot be used at the same time")
+	if(!is.null(numTaxa)){
+		if(numTaxa >= ncol(data) || numTaxa <= 0)
+			stop(sprintf("numTaxa must be between 0 and %i.", ncol(data)-1))
+	}
+	if(!is.null(perTaxa)){
+		if(perTaxa >= 1 || perTaxa <= 0)
+			stop("perTaxa must be between 0 and 1.")
+	}
+	
+	taxaNames <- colnames(data)
+	
+	# Drop all subjects that don't have enough reads
+	data <- data[rowSums(data)>minReads,, drop=FALSE]
+	if(nrow(data) < 2)
+		stop("minReads is too large and is excluding too many samples.  Please try lowering its value.")
+	
+	# Drop all 0 taxa
+	data <- data[,colSums(data)>0, drop=FALSE]
+	
+	# Order the data based on order.type
+	if(tolower(order.type) == "sample"){
+		data <- t(apply(data, 1, function(x){x[order(x, decreasing=TRUE)]}))
+	}else{
+		data <- data[,order(colSums(data), decreasing=TRUE)]
+	}
+	
+	# Use a percentage based approach to find the number of taxa to collapse
+	if(!is.null(perTaxa)){
+		perNumReadsTaxa <- colSums(data)/sum(data)
+		cumSumReads <- cumsum(perNumReadsTaxa)
+		taxaAboveThrs <- which(cumSumReads > perTaxa)
+		if(length(taxaAboveThrs) == 0){
+			numTaxa <- 1
+		}else{
+			numTaxa <- min(taxaAboveThrs)
+		}
+	}
+	
+	# Pull out the taxa we want to collapse
+	otherData <- data[,-c(1:numTaxa), drop=FALSE]
+	
+	# Put the data back together and relabel
+	retData <- cbind(data[,1:numTaxa], Other=rowSums(otherData))
+	
+	return(retData)
 }
