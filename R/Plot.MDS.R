@@ -33,8 +33,8 @@ function(group.data, main="Group MDS", retCords=FALSE){
 		cols <- c(cols, rep(availCols[i], nrow(group.data[[i]])))
 	
 	# Plot MDS
-	plot(loc, pch=16, ylab="MDS 2", xlab="MDS 1", col=cols)
-	legend("topright", legend=grpNames, pch=16, col=availCols)
+	plot(loc, pch=16, ylab="MDS 2", xlab="MDS 1", col=cols, main=main)
+	legend("topright", legend=grpNames, pch=15, col=availCols)
 	
 	if(retCords)
 		return(loc)

@@ -1,7 +1,7 @@
 Gen.Alg <-
 function(data, covars, iters=50, popSize=200, earlyStop=0, dataDist="euclidean", covarDist="gower", 
-		verbose=FALSE, plot=TRUE, minSolLen=NULL, maxSolLen=NULL){
-	if(missing(data) || missing(covars))
+		verbose=FALSE, plot=TRUE, minSolLen=NULL, maxSolLen=NULL, custCovDist=NULL){
+	if(missing(data) || (missing(covars) && is.null(custCovDist)))
 		stop("data and/or covars are missing.")
 	
 	# Check for any bad numbers
@@ -50,7 +50,11 @@ function(data, covars, iters=50, popSize=200, earlyStop=0, dataDist="euclidean",
 	}
 	
 	# Set up our base distance matrix
-	covarDists <- vegan::vegdist(covars, covarDist)
+	if(is.null(custCovDist)){
+		covarDists <- vegan::vegdist(covars, covarDist)
+	}else{
+		covarDists <- custCovDist
+	}
 	
 	# Get each columns distance contribution
 	colDists <- vector("list", ncol(data))
@@ -133,7 +137,7 @@ function(data, covars, iters=50, popSize=200, earlyStop=0, dataDist="euclidean",
 	rownames(population) <- paste("Solution", 1:nrow(population))
 	colnames(population) <- colnames(data)
 	rownames(evalSumm) <- paste("Iteration", 1:nrow(evalSumm))
-	colnames(evalSumm) <- c("Best", "25%ile", "Median", "Mean", "75%ile", "Worst")
+	colnames(evalSumm) <- c("Worst", "25%ile", "Median", "Mean", "75%ile", "Best")
 	
 	evalVals <- matrix(evalVals[order(evalVals, decreasing=TRUE)], 1, length(evalVals))
 	colnames(evalVals) <- paste("Solution ", 1:length(evalVals))

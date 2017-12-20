@@ -7,17 +7,17 @@ function(rawResults, rpartPermRes, numPerms){
 	par(mar=c(5, 4, 4, 5) + .1)
 	
 	# Make the inital plot
-	plot(NULL, type="b", main="Number of Leaves vs Relative Error", lwd=2, 
+	plot(NULL, type="b", main="Number of Leaves vs Within Group Distance", lwd=2, 
 			xlab="Number of Terminal Nodes", 
-			ylab="Relative Error", 
+			ylab="Within Group Distance", 
 			xlim=range(allData$Leafs, na.rm=TRUE, finite=TRUE),
-			ylim=range(allData$RelErr, na.rm=TRUE, finite=TRUE)
+			ylim=range(allData$WDist, na.rm=TRUE, finite=TRUE)
 	)
 	# Add all permutation results
 	for(i in 1:numPerms){
 		tempData <- rpartPermRes[rpartPermRes$Tree == unique(rpartPermRes$Tree)[i],]
-		lines(tempData$Leafs, tempData$RelErr, col="red", lty=2)
+		lines(tempData$Leafs, tempData$WDist, col="red", lty=2)
 	}
 	# Draw raw line
-	lines(rawResults$Leafs, rawResults$RelErr, col="black", type="b", pch=16, lwd=3)
+	lines(rawResults$Leafs, rawResults$WDist, col="black", type="b", pch=16, lwd=3)
 }

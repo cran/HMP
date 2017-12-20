@@ -24,5 +24,8 @@ function(estPi, errorBars=TRUE, logScale=FALSE, main="PI Vector", ylab="Fraction
 	if(logScale)
 		piPlot <- piPlot + ggplot2::scale_y_log10()
 	
+	if(logScale)
+		piPlot <- piPlot + ggplot2::labs(y=paste(ylab, "(Logged)"))
+	
 	print(piPlot)
 }

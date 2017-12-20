@@ -64,6 +64,6 @@
 	
 	### Computing Power of the test statistics (Type II error)
 	group.pi <- rbind(fit.throat$pi, fit.tonsils$pi)
-	pval2 <- MC.Xmc.statistics(group.Nrs, numMC, pi0, group.pi, group.theta, "ha")
+	pval2 <- MC.Xmc.statistics(group.Nrs, numMC, pi0, group.pi, group.theta)
 	pval2
 }

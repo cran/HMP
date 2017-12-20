@@ -9,13 +9,14 @@ function(data, popSize){
 	# Make 10 starting points as long as our popSize is > 10
 	if(popSize >= SUGGESTION_COUNT){
 		# Get a rough starting point
-		rstart <- apply(data, 2, stats::sd)/apply(data, 2, mean)
+		rstart <- apply(data, 2, mean)
 		
 		# Use the rough difference to make starting solutions
 		breaks <- seq(.05, 1, 1/SUGGESTION_COUNT)
+		breakVals <- stats::quantile(rstart, breaks)
 		suggestions <- matrix(0, length(breaks), length(rstart))
 		for(i in 1:length(breaks))
-			suggestions[i,] <- ifelse(rstart >= stats::quantile(rstart, breaks[i]), 1, 0)
+			suggestions[i,] <- ifelse(rstart >= breakVals[i], 1, 0)
 		
 		population[1:SUGGESTION_COUNT,] <- suggestions
 		numCreated <- SUGGESTION_COUNT

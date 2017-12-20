@@ -10,7 +10,7 @@
 \usage{
 	Gen.Alg(data, covars, iters = 50, popSize = 200, earlyStop = 0, 
 	dataDist = "euclidean", covarDist = "gower", verbose = FALSE, 
-	plot = TRUE, minSolLen = NULL, maxSolLen = NULL)
+	plot = TRUE, minSolLen = NULL, maxSolLen = NULL, custCovDist = NULL)
 }
 
 \arguments{
@@ -29,6 +29,7 @@
   \item{plot}{A boolean to plot the progress of the scoring statistics by iteration.}
   \item{minSolLen}{The minimum number of columns to select.}
   \item{maxSolLen}{The maximum number of columns to select.}
+  \item{custCovDist}{A custom covariate distance matrix to use in place of calculating one from covars.}
 }
 
 \value{

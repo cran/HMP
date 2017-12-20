@@ -1,7 +1,7 @@
 pruneRpart <-
 function(rpartResults, rpartData, iter){
 	# Turn data into abundance
-#	abunData <- t(apply(rpartData, 1, function(x){x/sum(x)}))
+	abunData <- t(apply(rpartData, 1, function(x){x/sum(x)}))
 	
 	# Pull out cp values for nodes
 	cp <- rpartResults$cp[,1]
@@ -20,12 +20,12 @@ function(rpartResults, rpartData, iter){
 		numLeafs[i] <- length(leafSplits)
 		
 		# Calc distance within each leaf
-#		for(j in 1:numLeafs[i]){
-#			leafId <- which(resTemp$where == leafSplits[j])
-#			if(length(leafId) == 1)
-#				next
-#			wDist[i] <- wDist[i] + sum(dist(abunData[leafId,]))
-#		}
+		for(j in 1:numLeafs[i]){
+			leafId <- which(resTemp$where == leafSplits[j])
+			if(length(leafId) == 1)
+				next
+			wDist[i] <- wDist[i] + sum(dist(abunData[leafId,]))
+		}
 	}
 	tempResults <- data.frame(Tree=paste("Tree", iter), CP=cp, Leafs=numLeafs, WDist=wDist, RelErr=relErr)
 	

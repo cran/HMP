@@ -1,3 +1,22 @@
+CHANGES IN HMP VERSION 1.6
+
+CHANGES
+
+* Added ability to use custom covar distance matrix
+
+* Added two new plotting functions
+
+* Added text to indicate logging with the pi plot function
+
+BUG FIXES
+
+* Fixed labels in GA plots and results
+
+* Fixed bug in Xmcupo.sevsample pvalue calculations
+
+* Fixed bug with plot.pi not passing plot title
+
+
 CHANGES IN HMP VERSION 1.5
 
 CHANGES

@@ -48,7 +48,6 @@ function(data, covars, plot=TRUE, numPerms=1000, parallel=FALSE, cores=3, minspl
 	
 	# Calculate pvalues
 	pvals <- calcRpartPval(rawResults, rpartPermRes, numPerms)
-	rawResults <- cbind(rawResults, pvals)
 	
 	ret <- list(rawTree=res, rawPrune=rawResults, permPrune=rpartPermRes, pvals=pvals)
 	return(ret)

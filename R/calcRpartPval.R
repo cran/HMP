@@ -8,11 +8,15 @@ function(rawResults, rpartPermRes, numPerms){
 		id <- which(rpartPermRes$Tree == treeNames[i])
 		if(length(id) <= 1) # Skip any 1 node trees
 			next
-		pvalData[,i] <- stats::approx(rpartPermRes$Leafs[id], rpartPermRes$RelErr[id], rawResults$Leafs)$y
+		temp <- stats::approx(rpartPermRes$Leafs[id], rpartPermRes$WDist[id], rawResults$Leafs)$y
+#		pvalData[,i] <- -c(0, diff(temp)/diff(rawResults$Leafs))
+		pvalData[,i] <- temp
 	}
 	
 	# Calculate P-value
-	pval <- rowMeans(rawResults$RelErr >= pvalData, na.rm=TRUE)
+#	slope <- -c(0, diff(rawResults$WDist)/diff(rawResults$Leafs))
+#	pval <- rowMeans(slope <= pvalData, na.rm=TRUE)
+	pval <- rowMeans(rawResults$WDist> pvalData, na.rm=TRUE)
 	pval <- ifelse(is.na(pval), 0, pval)
 	
 	return(pval)

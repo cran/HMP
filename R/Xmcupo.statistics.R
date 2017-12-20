@@ -20,7 +20,7 @@ function(groupParameter){
 	pis <- pis[rowSums(pis)!=0,]
 	
 	# Calculate pi0
-	pi0 <- rowSums(pis/xscs)/sum(1/xscs)
+	pi0 <- colSums(t(pis)/xscs)/sum(1/xscs)
 	
 	# Calculate Xmcupo
 	Xmcupo <- sum(colSums((pis-pi0)^2/pi0)/xscs)		
