@@ -41,7 +41,7 @@
 }
 
 \author{
-	Patricio S. La Rosa, Elena Deych, Berkley Shands, Sharina Carter, William D. Shannon
+	Patricio S. La Rosa, Elena Deych, Berkley Shands, Sharina Carter, Dake Yang, William D. Shannon
 }
 
 \keyword{ package }

@@ -12,8 +12,6 @@
 
 \value{A bar plot of taxonomic proportions for all samples at a given taxonomic level.}
 
-\author{Patricio S. La Rosa, Elena Deych, Berkley Shands, William D. Shannon}
-
 \examples{
 	data(saliva)
 	

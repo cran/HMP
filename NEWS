@@ -2,6 +2,24 @@ CHANGES IN HMP VERSION 1.6
 
 CHANGES
 
+* Added penalty for GA
+
+* Changed rpart to use cross validation to find the best tree instead of permutations
+
+* Changed KL to use MOM instead of MLE
+
+
+BUG FIXES
+
+* Fixed getBC so that it drops duplicates instead of crashing
+
+* Fixed estPi to handle groups with 1 sample
+
+
+CHANGES IN HMP VERSION 1.5.1
+
+CHANGES
+
 * Added ability to use custom covar distance matrix
 
 * Added two new plotting functions

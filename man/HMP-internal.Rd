@@ -1,38 +1,40 @@
 \name{HMP-internal}
 \alias{HMP-internal}
-\alias{Xdc.statistics}
-\alias{Xdc.statistics.Hnull.Ha}
-\alias{Xdc.statistics.MoM}
-\alias{Xmc.statistics}
-\alias{Xmc.statistics.Hnull.Ha}
-\alias{Xmcupo.statistics}
-\alias{Xmcupo.statistics.Hnull.Ha}
-\alias{Xoc.statistics}
-\alias{Xoc.statistics.Hnull.Ha}
-\alias{Xsc.statistics}
-\alias{Xsc.statistics.Hnull.Ha}
-\alias{ZT.statistics}
-\alias{Z.statistics}
-\alias{T.statistics}
-\alias{ZT.statistics.Hnull.Ha}
+
 \alias{loglikDM}
 \alias{weirMoM}
 \alias{getBC}
-\alias{pruneRpart}
-\alias{rpartInit}
-\alias{rpartEval}
-\alias{rpartSplit}
-\alias{hmp.pkg.env}
 \alias{pioest}
+
 \alias{gaScoring}
 \alias{gaCreation}
 \alias{gaPlot}
-\alias{plotRpartPerm}
-\alias{calcRpartPval}
+
+\alias{hmp.pkg.env}
+\alias{rpartInit}
+\alias{rpartEval}
+\alias{rpartSplit}
+\alias{rpartCV}
+\alias{rpartCI}
+\alias{rpartCS}
+
+\alias{Xmcupo.statistics}
+\alias{Z.statistics}
+\alias{T.statistics}
+\alias{Xmc.statistics}
+\alias{Xsc.statistics}
+\alias{Xoc.statistics}
+\alias{Xdc.statistics}
+\alias{Xdc.statistics.MoM}
+
+\alias{Xmcupo.statistics.Hnull.Ha}
+\alias{ZT.statistics.Hnull.Ha}
+\alias{Xmc.statistics.Hnull.Ha}
+\alias{Xsc.statistics.Hnull.Ha}
+\alias{Xoc.statistics.Hnull.Ha}
+\alias{Xdc.statistics.Hnull.Ha}
 
 \title{Internal Functions}
 \description{These files are only called from inside other functions and are therefore not documented here.}
-
-\author{Patricio S. La Rosa, Elena Deych, Berkley Shands, Sharina Carter, William D. Shannon}
 
 \keyword{internal}

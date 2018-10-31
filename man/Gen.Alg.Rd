@@ -10,7 +10,8 @@
 \usage{
 	Gen.Alg(data, covars, iters = 50, popSize = 200, earlyStop = 0, 
 	dataDist = "euclidean", covarDist = "gower", verbose = FALSE, 
-	plot = TRUE, minSolLen = NULL, maxSolLen = NULL, custCovDist = NULL)
+	plot = TRUE, minSolLen = NULL, maxSolLen = NULL, custCovDist = NULL,
+	penalty = 0)
 }
 
 \arguments{
@@ -30,6 +31,8 @@
   \item{minSolLen}{The minimum number of columns to select.}
   \item{maxSolLen}{The maximum number of columns to select.}
   \item{custCovDist}{A custom covariate distance matrix to use in place of calculating one from covars.}
+  \item{penalty}{A number between 0 and 1 used to penalize the solutions based on the number of selected 
+  	taxa using the following formula: score - penalty * ((number of selected taxa)/(number of taxa)).}
 }
 
 \value{
@@ -60,8 +63,6 @@
 	
 	The distance calculations use the vegdist package. \link[vegan]{vegdist}
 }
-
-\author{Sharina Carter, Elena Deych, Berkley Shands, William D. Shannon}
 
 \examples{
 	\dontrun{

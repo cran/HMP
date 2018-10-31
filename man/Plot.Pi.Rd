@@ -18,8 +18,6 @@
 
 \value{A plot of the pi vectors for every group.}
 
-\author{Sharina Carter, Elena Deych, Berkley Shands, William D. Shannon}
-
 \examples{
 	\dontrun{
 		data(saliva)

@@ -1,6 +1,6 @@
 Gen.Alg <-
 function(data, covars, iters=50, popSize=200, earlyStop=0, dataDist="euclidean", covarDist="gower", 
-		verbose=FALSE, plot=TRUE, minSolLen=NULL, maxSolLen=NULL, custCovDist=NULL){
+		verbose=FALSE, plot=TRUE, minSolLen=NULL, maxSolLen=NULL, custCovDist=NULL, penalty=0){
 	if(missing(data) || (missing(covars) && is.null(custCovDist)))
 		stop("data and/or covars are missing.")
 	
@@ -11,6 +11,8 @@ function(data, covars, iters=50, popSize=200, earlyStop=0, dataDist="euclidean",
 		stop("popSize must be an integer greater than 0")
 	if(earlyStop < 0)
 		stop("earlyStop must be an integer greater than or equal to 0")
+	if(penalty < 0 || penalty > 1)
+		stop("penalty must be between 0 and 1")
 	
 	# Check distances
 	if(dataDist != "euclidean" && dataDist != "gower")
@@ -20,9 +22,6 @@ function(data, covars, iters=50, popSize=200, earlyStop=0, dataDist="euclidean",
 	
 	# Define size
 	size <- ncol(data)
-	
-	# Not ready for use yet
-	penalty <- FALSE
 	
 	# Check stopping rules
 	if(!is.null(minSolLen))

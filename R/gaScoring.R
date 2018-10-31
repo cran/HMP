@@ -1,5 +1,5 @@
 gaScoring <-
-function(indices, covarDists, colDists, distType, penalty, minSolLen, maxSolLen) {
+function(indices, covarDists, colDists, distType, lambda, minSolLen, maxSolLen) {
 	BAD_RETURN <- -2 # Return worse than cor could do
 	
 	numSel <- sum(indices)
@@ -21,14 +21,13 @@ function(indices, covarDists, colDists, distType, penalty, minSolLen, maxSolLen)
 	# Combine the distance matrices based on distance type
 	if(distType == "gower"){
 		combinedSolDists <- Reduce("+", colDists[edges])/sum(indices)
-	}else{
+	}else if(distType == "euclidean"){
 		combinedSolDists <- sqrt(Reduce("+", colDists[edges]))
 	}
 	
 	# Get the correlation and penalize it based on the number of columns selected
 	mycor <- stats::cor(combinedSolDists, covarDists)
-	if(penalty)
-		mycor <- mycor * (length(indices)-sum(indices))/(length(indices)-1)
+	mycor <- mycor - (lambda * (sum(indices)/length(indices)))
 	
 	return(mycor)
 }

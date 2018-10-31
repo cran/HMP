@@ -14,8 +14,6 @@
 
 \value{A pvalue.}
 
-\author{Sharina Carter, Elena Deych, Berkley Shands, William D. Shannon}
-
 \examples{
 	data(saliva)
 	data(throat)

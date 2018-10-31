@@ -31,8 +31,6 @@
 	'Other' contains the sum of the least abundant taxa collapsed by setting 'numTaxa' or 'perTaxa'.
 }
 
-\author{Patricio S. La Rosa, Elena Deych, Berkley Shands, William D. Shannon}
-
 \examples{
 	data(saliva) 
 	

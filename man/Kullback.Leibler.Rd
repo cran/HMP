@@ -19,12 +19,9 @@
 
 \value{A matrix of Kullback Leibler divergence values and a heatmap if plot is TRUE.}
 
-\author{Sharina Carter, Elena Deych, Berkley Shands, William D. Shannon}
-
 \references{
 	Kotz S, Johnson N.L (1981) Encyclopedia Of Statistical Sciences
 }
-
 
 \examples{
 	data(saliva)

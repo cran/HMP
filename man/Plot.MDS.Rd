@@ -13,8 +13,6 @@
 
 \value{A MDS plot and possibly the x-y coordinates for every point.}
 
-\author{Sharina Carter, Elena Deych, Berkley Shands, William D. Shannon}
-
 \examples{
 	data(saliva)
 	data(throat)

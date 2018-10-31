@@ -22,8 +22,6 @@
 	Wilson, J. R., and Koehler, K. J. (1984). Testing of equality of vectors of proportions for several cluster samples. 
 	Proceedings of Joint Statistical Association Meetings. Survey Research Methods.
 }
-	
-\author{Patricio S. La Rosa, Elena Deych, Berkley Shands, William D. Shannon}
 
 \examples{
 	data(saliva) 

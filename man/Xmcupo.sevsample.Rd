@@ -22,8 +22,6 @@
 	Proceedings of Joint Statistical Association Meetings. Survey Research Methods.
 }
 
-\author{Patricio S. La Rosa, Elena Deych, Berkley Shands, William D. Shannon}
-
 \examples{
 	data(saliva) 
 	data(tonsils)

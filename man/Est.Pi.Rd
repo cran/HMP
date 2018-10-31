@@ -21,8 +21,6 @@
 	and the theta values with standard errors for both MLE and MOM.
 }
 
-\author{Sharina Carter, Elena Deych, Berkley Shands, William D. Shannon}
-
 \examples{
 	\dontrun{
 		data(saliva)

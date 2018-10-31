@@ -19,8 +19,6 @@
 
 \value{A barchart of the pi vectors for every group/time.}
 
-\author{Elena Deych, Berkley Shands, William D. Shannon, Dake Yang}
-
 \examples{
 	\dontrun{
 		data(saliva)

@@ -16,8 +16,6 @@
 	Note: Though the test statistic supports an unequal number of reads across samples, the performance has not yet been fully tested.
 }
 
-\author{Patricio S. La Rosa, Elena Deych, Berkley Shands, William D. Shannon}
-
 \examples{
 	### Generate the number of reads per sample
 	### The first number is the number of reads and the second is the number of subjects

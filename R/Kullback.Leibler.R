@@ -33,8 +33,8 @@ function(group.data, plot=TRUE, main="Kullback Leibler Divergences", parallel=FA
 		
 		tryCatch({
 					results <- foreach::foreach(i=1:numGrps, .combine=list, .multicombine=TRUE, .inorder=TRUE, .packages=c("dirmult")) %dopar%{
-						mle.param <- dirmult::dirmult(group.data[[i]], trace=FALSE)
-						return(mle.param)
+						param <- DM.MoM(group.data[[i]])
+						return(param)
 					}
 				}, finally = {
 					parallel::stopCluster(cl) # Close the parallel connections
@@ -43,15 +43,15 @@ function(group.data, plot=TRUE, main="Kullback Leibler Divergences", parallel=FA
 	}else{
 		results <- vector("list", numGrps)
 		for(i in 1:numGrps)	
-			results[[i]] <- dirmult::dirmult(group.data[[i]], trace=FALSE)
+			results[[i]] <- DM.MoM(group.data[[i]])
 	}
 	
 	# Get alpha for every group
 	alpha <- lapply(results, function(x) x$gamma)
 	names(alpha) <- grpNames
 	
-	# Get LL given another alpha
-	LL.vals <- mapply(function(x, y) loglikDM(x, y), x=group.data, y=alpha)
+	# Get LL given alpha
+	LL.vals <- sapply(results, function(x) x$loglik)
 	
 	# Get LL for every group using another alpha
 	KLmat <- matrix(0, numGrps, numGrps)		

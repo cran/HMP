@@ -24,8 +24,6 @@
 
 \value{The list given, but modified so every data set has the same ordering and number of columns}
 
-\author{Sharina Carter, Elena Deych, Berkley Shands, William D. Shannon}
-
 \examples{
 	data(saliva)
 	data(throat)
