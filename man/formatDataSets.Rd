@@ -6,12 +6,11 @@
 	transforms them such that they all have the same columns of taxa.
 }
 
-\usage{formatDataSets(group.data, data)}
+\usage{formatDataSets(group.data)}
 
 \arguments{
   \item{group.data}{A list where each element is a matrix of taxonomic counts(columns) for each sample(rows). 
   		Note that the row names should correspond to sample names}
-  \item{data}{Deprecated. Replaced with group.data for clarity.}
  }
  
 \details{

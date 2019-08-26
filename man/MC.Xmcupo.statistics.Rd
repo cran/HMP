@@ -8,7 +8,7 @@
 
 \usage{
 	MC.Xmcupo.statistics(group.Nrs, numMC = 10, pi0, group.pi, group.theta, 
-	type = "ha", siglev = 0.05, MC = NULL, Nrs = NULL)
+		type = "ha", siglev = 0.05)
 }
 
 \arguments{
@@ -23,8 +23,6 @@
 		If \code{"hnull"}: Computes the size of the test.\cr
 		If \code{"ha"}: Computes the power of the test. (default)}
   \item{siglev}{Significance level for size of the test / power calculation. The default is 0.05.}
-  \item{MC}{Deprecated. Replaced with numMC for clarity.}
-  \item{Nrs}{Deprecated. Replaced with group.Nrs for clarity.}
 }
 
 \value{Size of the test statistics (under \code{"hnull"}) or power (under \code{"ha"}) of the test.}
@@ -57,7 +55,6 @@
 	pi0 <- fit.saliva$pi
 	
 	### Computing size of the test statistics (Type I error)
-	group.theta <- c(fit.throat$theta, fit.tonsils$theta)
 	pval1 <- MC.Xmcupo.statistics(group.Nrs, numMC, pi0, group.theta=group.theta, type="hnull")
 	pval1
 	

@@ -1,5 +1,5 @@
 DM.Rpart.CV <-
-function(data, covars, plot=TRUE, minsplit=1, minbucket=1, cp=0, numCV=10){
+function(data, covars, plot=TRUE, minsplit=1, minbucket=1, cp=0, numCV=10, parallel=FALSE, cores=3, use1SE=FALSE, lowerSE=TRUE){
 	if(missing(data) || missing(covars))
 		stop("data and/or covars are missing.")
 	if(numCV < 2)
@@ -15,12 +15,33 @@ function(data, covars, plot=TRUE, minsplit=1, minbucket=1, cp=0, numCV=10){
 		return(rpartBase)
 	}
 	
-	cvRes <- rpartCV(data, covars, rpartRes, minsplit, minbucket, numCV)
+	cvRes <- rpartCV(data, covars, rpartRes, minsplit, minbucket, numCV, parallel, cores)
 	
 	# Calculate the best tree
-	ciInfo <- cvRes$ciInfo
-	bestTreeLoc <- which(ciInfo[,4] == min(ciInfo[,4]))
-	bestTreeLoc <- bestTreeLoc[length(bestTreeLoc)]
+	ciInfo <- as.data.frame(cvRes$ciInfo)
+	
+	# Find the tree with the lowest MSE
+	minMSE <- min(ciInfo$MSE)
+	lowestMSELoc <- which(ciInfo$MSE == minMSE)[1]
+	
+	if(use1SE){	
+		# Find which trees are within 1 SE of the lowest mse tree
+		cutoffU <- ciInfo$MSE[lowestMSELoc] + ciInfo$SE[lowestMSELoc]
+		cutoffL <- ciInfo$MSE[lowestMSELoc] - ciInfo$SE[lowestMSELoc]
+		ciInfo$within1SE <- ifelse(ciInfo$MSE <= cutoffU & ciInfo$MSE >= cutoffL, 1, 0)   
+		
+		# Find the smallest/biggest tree within 1 SE
+		within <- which(ciInfo$within1SE == 1)
+		if(lowerSE){
+			bestTreeLoc <- min(within)
+		}else{
+			bestTreeLoc <- max(within)
+		}
+	}else{
+		bestTreeLoc <- lowestMSELoc
+	}
+	
+	# Pull out the best tree
 	size <- ciInfo[bestTreeLoc, 2] + 1
 	best <- rpart::prune(rpartRes, cp=ciInfo[bestTreeLoc, 1])
 	

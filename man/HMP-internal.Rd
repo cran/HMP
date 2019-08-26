@@ -14,6 +14,7 @@
 \alias{rpartInit}
 \alias{rpartEval}
 \alias{rpartSplit}
+\alias{rpartCVSingle}
 \alias{rpartCV}
 \alias{rpartCI}
 \alias{rpartCS}
@@ -33,6 +34,10 @@
 \alias{Xsc.statistics.Hnull.Ha}
 \alias{Xoc.statistics.Hnull.Ha}
 \alias{Xdc.statistics.Hnull.Ha}
+
+
+\alias{DM.Rpart.Base.Old}
+\alias{rpartSplitOld}
 
 \title{Internal Functions}
 \description{These files are only called from inside other functions and are therefore not documented here.}

@@ -9,7 +9,7 @@
 
 \usage{
 	Data.filter(data, order.type = "data", minReads = 0, numTaxa = NULL, 
-	perTaxa = NULL, K = NULL, reads.crit = NULL)
+		perTaxa = NULL)
 }
 
 \arguments{
@@ -22,8 +22,6 @@
   		Only one argument, numTaxa or perTaxa should be specified.}
   \item{perTaxa}{The combined percentage of data to keep, while collapsing the remaining taxa. 
   		Only one argument, numTaxa or perTaxa should be specified.}
-  \item{K}{Deprecated. Replaced with numTaxa for clarity.}
-  \item{reads.crit}{Deprecated. Replaced with minReads for clarity.}
 }
 
 \value{
@@ -39,7 +37,7 @@
 	filterDataNum <- Data.filter(saliva, "data", 1000, numTaxa=10) 
 	
 	### Excludes all samples with fewer than 1000 reads and collapses
-	### the least abundant taxa to keep as close to 85% of the data as
+	### the least abundant taxa to keep as close to 95% of the data as
 	### possible
 	filterDataPer <- Data.filter(saliva, "data", 1000, perTaxa=.95) 
 	

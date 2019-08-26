@@ -6,7 +6,7 @@
 	C(\eqn{\alpha})-optimal test statistics of Kim and Margolin (1992) (t statistics) and the C(\eqn{\alpha})-optimal test statistics of (Paul et al., 1989).
 }
 
-\usage{MC.ZT.statistics(Nrs, numMC = 10, fit, type = "ha", siglev = 0.05, MC = NULL)}
+\usage{MC.ZT.statistics(Nrs, numMC = 10, fit, type = "ha", siglev = 0.05)}
 
 \arguments{
   \item{Nrs}{A vector specifying the number of reads/sequence depth for each sample.}
@@ -16,7 +16,6 @@
 		If \code{"hnull"}: Computes the size of the test.\cr
 		If \code{"ha"}: Computes the power of the test. (default)}
   \item{siglev}{Significance level for size of the test / power calculation. The default is 0.05.}
-  \item{MC}{Deprecated. Replaced with numMC for clarity.}
 }
 
 \value{A vector containing both the size of the test statistics (under \code{"hnull"}) or power (under \code{"ha"}) of the test for both the z and t statistics.}

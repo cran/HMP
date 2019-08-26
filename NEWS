@@ -1,3 +1,26 @@
+CHANGES IN HMP VERSION 2.0
+
+CHANGES
+
+* Added parallel computing to rpart cross validation
+
+* The best rpart tree can now be the tree with the smallest error or plus/minus 1 standard error
+
+* Changed rpart to run quicker by handling factors and numeric differently
+
+* Data.filter now works with numtaxa and perTaxa as NULL by keeping all taxa
+
+* Removed deprecated arguments
+
+* Added vignette containing code to reproduce figures in the DM-Rpart paper
+
+BUG FIXES
+
+* Fixed labeling error in rpart
+
+* Added error checking for rpart trees with 1 node and no surrogates
+
+
 CHANGES IN HMP VERSION 1.6
 
 CHANGES
@@ -7,7 +30,6 @@ CHANGES
 * Changed rpart to use cross validation to find the best tree instead of permutations
 
 * Changed KL to use MOM instead of MLE
-
 
 BUG FIXES
 

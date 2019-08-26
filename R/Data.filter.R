@@ -1,33 +1,23 @@
 Data.filter <-
-function(data, order.type="data", minReads=0, numTaxa=NULL, perTaxa=NULL, K=NULL, reads.crit=NULL){
+function(data, order.type="data", minReads=0, numTaxa=NULL, perTaxa=NULL){
 	if(missing(data))
 		stop("data is missing.")
 	if(tolower(order.type) != "data" && tolower(order.type) != "sample")
 		stop(sprintf("'%s' not recognized, order.type must be 'data' or 'sample'", as.character(order.type)))
 	
-	# Check if K is still being used
-	if(is.null(numTaxa) && !is.null(K)){
-		warning("'K' is deprecated. It has been replaced with numTaxa. View the help files for details.")
-		numTaxa <- K
-	}
-	
-	# Check if reads.crit is still being used
-	if(!is.null(reads.crit)){
-		warning("'reads.crit' is deprecated. It has been replaced with minReads. View the help files for details.")
-		minReads <- reads.crit
-	}
-	
 	# Check if numTaxa or perTaxa is being used
 	if(!is.null(numTaxa) && !is.null(perTaxa))
 		stop("numTaxa and perTaxa cannot be used at the same time")
 	if(!is.null(numTaxa)){
-		if(numTaxa >= ncol(data) || numTaxa <= 0)
-			stop(sprintf("numTaxa must be between 0 and %i.", ncol(data)-1))
+		if(numTaxa > ncol(data) || numTaxa <= 0)
+			stop(sprintf("numTaxa must be between 0 and %i.", ncol(data)))
 	}
 	if(!is.null(perTaxa)){
 		if(perTaxa >= 1 || perTaxa <= 0)
 			stop("perTaxa must be between 0 and 1.")
 	}
+	if(is.null(numTaxa) && is.null(perTaxa))
+		numTaxa <- ncol(data)
 	
 	taxaNames <- colnames(data)
 	
@@ -58,11 +48,15 @@ function(data, order.type="data", minReads=0, numTaxa=NULL, perTaxa=NULL, K=NULL
 		}
 	}
 	
-	# Pull out the taxa we want to collapse
-	otherData <- data[,-c(1:numTaxa), drop=FALSE]
-	
-	# Put the data back together and relabel
-	retData <- cbind(data[,1:numTaxa], Other=rowSums(otherData))
+	if(numTaxa >= ncol(data)){
+		retData <- data
+	}else{
+		# Pull out the taxa we want to collapse
+		otherData <- data[,-c(1:numTaxa), drop=FALSE]
+		
+		# Put the data back together and relabel
+		retData <- cbind(data[,1:numTaxa], Other=rowSums(otherData))
+	}
 	
 	return(retData)
 }

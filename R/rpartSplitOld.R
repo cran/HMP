@@ -1,27 +1,24 @@
-rpartSplit <-
+rpartSplitOld <-
 function(y, wt, x, parms, continuous){
 	# Get initial LL
 	LL <- DM.MoM(y)$loglik
-	
-	uniqX <- sort(unique(x))
-	numUni <- length(uniqX) - 1
 	
 	# Determine what we are comparing
 	if(continuous){
 		numTests <- length(x) - 1
 		dir <- rep(-1, numTests)
 	}else{
-		numTests <- numUni
+		uniqX <- sort(unique(x))
+		numTests <- length(uniqX) - 1
 		dir <- uniqX
 	}
 	
 	# Run through every comparison
 	LRT <- rep(0, numTests)
-	for(i in 1:numUni){
+	for(i in 1:numTests){
 		if(continuous){
-			id <- which(x <= uniqX[i])
-			grp1 <- y[id,, drop=FALSE]
-			grp2 <- y[-id,, drop=FALSE]
+			grp1 <- y[1:i,, drop=FALSE]
+			grp2 <- y[-c(1:i),, drop=FALSE]
 		}else{
 			grp1 <- y[x == uniqX[i],, drop=FALSE]
 			grp2 <- y[x != uniqX[i],, drop=FALSE]
@@ -37,11 +34,7 @@ function(y, wt, x, parms, continuous){
 		if(LLgrp1 == Inf || LLgrp2 == Inf)
 			next
 		
-		if(continuous){
-			LRT[id[length(id)]] <- -2*(LL-LLgrp1-LLgrp2)
-		}else{
-			LRT[i] <- -2*(LL-LLgrp1-LLgrp2)
-		}
+		LRT[i] <- -2*(LL-LLgrp1-LLgrp2)
 	}
 	ret <- list(goodness=LRT, direction=dir)
 	

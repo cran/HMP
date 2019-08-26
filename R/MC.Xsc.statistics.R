@@ -1,17 +1,11 @@
 MC.Xsc.statistics <-
-function(Nrs, numMC=10, fit, pi0=NULL, type="ha", siglev=0.05, MC=NULL) {
+function(Nrs, numMC=10, fit, pi0=NULL, type="ha", siglev=0.05) {
 	if(missing(Nrs) || missing(fit))
 		stop("Nrs and/or fit missing.")
 	if(is.null(pi0) && tolower(type) == "ha")
 		stop("pi0 cannot be null with type 'ha'.")
 	if(tolower(type) != "ha" && tolower(type) != "hnull")
 		stop(sprintf("Type '%s' not found. Type must be 'ha' for power or 'hnull' for size.\n", as.character(type)))
-	
-	# Check if someone is still using MC
-	if(!is.null(MC)){
-		warning("'MC' is deprecated. It has been replaced with numMC. View the help files for details.")
-		numMC <- MC
-	}
 	
 	# Get all the XSC values
 	XscStatVector <- rep(0, numMC)

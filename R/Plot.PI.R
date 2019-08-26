@@ -9,9 +9,9 @@ function(estPi, errorBars=TRUE, logScale=FALSE, main="PI Vector", ylab="Fraction
 	# Make the base plot
 	piPlot <- ggplot2::ggplot(estPi$params, ggplot2::aes_string(y="PI", x="Taxa", colour="Group")) +
 			ggplot2::geom_point() + 
-			ggplot2::theme(legend.position = "top") +
+			ggplot2::theme(legend.position = "top", text=ggplot2::element_text(size=15)) +
 			ggplot2::labs(title=main, y=ylab, x="") +
-			ggplot2::theme(axis.text.x=ggplot2::element_text(hjust=1, angle=45, size=6))
+			ggplot2::theme(axis.text.x=ggplot2::element_text(hjust=1, angle=45, size=10))
 	
 	# Add error bars
 	if(errorBars){

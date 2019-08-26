@@ -38,6 +38,8 @@
 \references{
 	La Rosa PS, Brooks JP, Deych E, Boone EL, Edwards DJ, et al. (2012) Hypothesis Testing and Power Calculations for 
 	Taxonomic-Based Human Microbiome Data. PLoS ONE 7(12): e52078. doi:10.1371/journal.pone.0052078
+	
+	Yang D, Johnson J, Zhou X, Deych E, et al. (2019) Microbiome Recursive Partitioning. Currently Under Review.
 }
 
 \author{

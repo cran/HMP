@@ -7,8 +7,8 @@
 }
 
 \usage{
-	MC.Xdc.statistics(group.Nrs, numMC = 10, alphap, type = "ha", siglev = 0.05, 
-	est = "mom", MC = NULL, Nrs = NULL)
+	MC.Xdc.statistics(group.Nrs, numMC = 10, alphap, type = "ha", 
+		siglev = 0.05, est = "mom")
 }
 
 \arguments{
@@ -23,8 +23,6 @@
   \item{siglev}{Significance level for size of the test / power calculation. The default is 0.05.}
   \item{est}{
 		The type of parameter estimator to be used with the Likelihood-ratio-test statistics, 'mle' or 'mom'. Default value is 'mom'.  (See Note 2 in details)}
-  \item{MC}{Deprecated. Replaced with numMC for clarity.}
-  \item{Nrs}{Deprecated. Replaced with group.Nrs for clarity.}
 }
 
 \value{Size of the test statistics (under \code{"hnull"}) or power (under \code{"ha"}) of the test.}

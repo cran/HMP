@@ -3,7 +3,7 @@
 \title{Size and Power for the One Sample RAD Probability-Mean Test Comparison}
 \description{This Monte-Carlo simulation procedure provides the power and size of the one sample RAD probability-mean test, using the Generalized Wald-type statistic.}
 
-\usage{MC.Xsc.statistics(Nrs, numMC = 10, fit, pi0 = NULL, type = "ha", siglev = 0.05, MC = NULL)}
+\usage{MC.Xsc.statistics(Nrs, numMC = 10, fit, pi0 = NULL, type = "ha", siglev = 0.05)}
 
 \arguments{
   \item{Nrs}{A vector specifying the number of reads/sequence depth for each sample.}
@@ -14,7 +14,6 @@
 		If \code{"hnull"}: Computes the size of the test.\cr
 		If \code{"ha"}: Computes the power of the test. (default)}
   \item{siglev}{Significance level for size of the test / power calculation. The default is 0.05.}
-  \item{MC}{Deprecated. Replaced with numMC for clarity.}
 }
 
 \value{Size of the test statistics (under \code{"hnull"}) or power (under \code{"ha"}) of the test.}

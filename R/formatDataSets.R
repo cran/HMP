@@ -1,11 +1,7 @@
 formatDataSets <-
-function(group.data, data=NULL){
-	if(missing(group.data) && is.null(data))
+function(group.data){
+	if(missing(group.data))
 		stop("group.data missing.")
-	
-	# Check if data is still being used
-	if(!is.null(data) && missing(group.data))
-		group.data <- data
 	
 	# Make sure we have more than 1 data set
 	numGroups <- length(group.data)
