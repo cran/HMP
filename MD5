@@ -1,4 +1,4 @@
-257fc50a60d0c7412be87f677047604c *DESCRIPTION
+8d6f36ba634987d8afd614e5ecdf7144 *DESCRIPTION
 6d96d876cac36d1480120aab419407dc *NAMESPACE
 16d50d207cce8caa234112c05c2a8773 *NEWS
 6961b54cc3d8e4ccfa437cf36df0ef4f *R/Barchart.data.R
@@ -72,9 +72,9 @@ a030d75f3f35e4aa1054bbded142e695 *data/hmp.pkg.env.rda
 697bf74de300a2869bac06914e4e256e *data/throat.rda
 fa640b1266ac358cc5bb22de8b9e0d6a *data/tongue.rda
 77b38c5bf128159667374be22372bbb1 *data/tonsils.rda
-c8a3a2f2cfa6607895f06da500aad096 *inst/doc/DMRP_Paper.R
-a65d6fc81392425073663870916cd268 *inst/doc/DMRP_Paper.Rnw
-99960617ae73e8c3293d333724694970 *inst/doc/DMRP_Paper.pdf
+9851d19fcf269741adbab5a8b679e7a6 *inst/doc/DMRP_Paper.R
+8e6824c9ce9963f0f702b10384ef92e5 *inst/doc/DMRP_Paper.Rnw
+dc37c7fb75ed06a0e183cb45635a99ba *inst/doc/DMRP_Paper.pdf
 0d3746ca462ca917482883bee2328919 *man/Barchart.data.Rd
 29a640518bca2cb89aea9528641d7b6b *man/C.alpha.multinomial.Rd
 15b78236b264912995853234ac037043 *man/DM.MoM.Rd
@@ -112,4 +112,6 @@ dd5128cc0e9b9f55882b338a3e39eb12 *man/formatDataSets.Rd
 67251c8e0c271ace26d4609b0d66ec96 *man/throat.Rd
 3aefeb7d36194ea67777c9f2c62772fe *man/tongue.Rd
 e2a12f6f65606f950fc76cd2e9fc2397 *man/tonsils.Rd
-a65d6fc81392425073663870916cd268 *vignettes/DMRP_Paper.Rnw
+8e6824c9ce9963f0f702b10384ef92e5 *vignettes/DMRP_Paper.Rnw
+b0573e3e9454a2aacc3fd19c41d11153 *vignettes/figure1.png
+a0ebda6e6429725a6c5cf1a3913af6f1 *vignettes/figure2.png

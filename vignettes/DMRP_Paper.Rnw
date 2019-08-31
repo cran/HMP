@@ -14,8 +14,8 @@
 \SweaveOpts{concordance=TRUE}
 
 \title{Examples and Figures from Microbiome Recursive Partitioning 2019}
-\author{Dake Yang, Jethro Johnson, Xin Zhou, Elena Deych, Berkley Shands, Blake
-Hanson, Erica Sodergren, George Weinstock, Bill Shannon}
+\author{Dake Yang, Jethro Johnson, Xin Zhou, Elena Deych, Berkley Shands, \\ 
+Blake Hanson, Erica Sodergren, George Weinstock, Bill Shannon}
 \maketitle
 
 
@@ -23,7 +23,6 @@ First we need to load the \texttt{HMP} package and data:
 <<initializing>>=
 
 library(HMP)
-library(rpart)
 
 data(dmrp_data)
 data(dmrp_covars)
@@ -38,7 +37,6 @@ was done by the function Data.filter in the HMP package.
 The covariate file consists of the same \Sexpr{nrow(dmrp_covars)} subjects in the
 same order and \Sexpr{ncol(dmrp_covars)} cytokines.
 
-\newpage
 \section{Figure 1}
 
 The figure below is the results of running the DM-RPart analysis on the given
@@ -53,7 +51,9 @@ others go to the right.
 
 The nodes at the very bottom are called terminal nodes.
 
-<<figure1>>=
+\clearpage
+\newpage
+<<figure1, eval=FALSE>>=
 
 # Set splitting parameters for DM-Rpart (see ??DM-Rpart for details)
 minBucket <- 6
@@ -63,27 +63,31 @@ minSplit <- 18
 # 20 means the model will run 20 times, each time holding 5% of the data out
 numCV <- 20	
 
-# Run the DM-RPart function
+# Run the DM-RPart function with a seed set
 set.seed(2019)
 DMRPResults <- DM.Rpart.CV(dmrp_data, dmrp_covars, plot=FALSE, minsplit=minSplit, 
 		minbucket=minBucket, numCV=numCV)
 
-# Pull out the best tree
+# Pull out and plot the best tree
 bestTree <- DMRPResults$bestTree
-
-# Plot the best tree
 rpart.plot::rpart.plot(bestTree, type=2, extra=101, box.palette=NA, branch.lty=3, 
 		shadow.col="gray", nn=FALSE)
 
 @
 
+\begin{figure}[h!]
+\includegraphics[width=0.9\textwidth, keepaspectratio]{figure1.png}
+\caption{DM-RPart Tree}
+\end{figure}
+
+\clearpage
 \newpage
 \section{Figure 2}
 
 The barcharts below show the taxa composition for each terminal node from the
 above rpart tree plot.
 
-<<figure2>>=
+<<figure2, eval=FALSE>>=
 
 # Split the data by terminal nodes
 nodeNums <- bestTree$frame$yval[bestTree$frame$var == "<leaf>"]
@@ -102,5 +106,10 @@ lattice::barchart(PI ~ Group, data=myPI, groups=Taxa, stack=TRUE, col=myColr,
 				col=myColr, title="", cex.title=1))
 
 @
+
+\begin{figure}[h!]
+\includegraphics[width=0.9\textwidth, keepaspectratio]{figure2.png}
+\caption{Barchart Comparing Terminal Nodes Taxa Composition}
+\end{figure}
 
 \end{document}
